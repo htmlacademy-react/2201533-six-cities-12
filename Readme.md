@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Эдуард Маликов](https://up.htmlacademy.ru/react/12/user/2201533).
-* Наставник: `Неизвестно`.
+* Наставник: [Andrey Povstyanko](https://htmlacademy.ru/profile/id1754753).
 
 ---
 
