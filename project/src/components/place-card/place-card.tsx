@@ -1,6 +1,6 @@
-import {PlaceData} from '../../index';
+import {PlaceData} from '../../types/types';
 
-export default function PlaceCard({price, type, title, isPremium, rating, previewImage, bookmark}: PlaceData): JSX.Element{
+export default function PlaceCard({price, type, title, isPremium, rating, previewImage, isFavorite}: PlaceData): JSX.Element{
   return (
     <article className="cities__card place-card">
       {isPremium &&
@@ -18,7 +18,7 @@ export default function PlaceCard({price, type, title, isPremium, rating, previe
             <b className="place-card__price-value">{`€${price} `}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${bookmark ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
