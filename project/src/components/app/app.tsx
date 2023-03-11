@@ -1,6 +1,6 @@
 import CityPage from '../../pages/city-page/citi-page';
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
-import {AppRoute, AUTH} from '../../setings';
+import {AppRoute, AUTH, RouteParam} from '../../setings';
 import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';
@@ -13,7 +13,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Root}>
           <Route index element={<Navigate to={AppRoute.DefaultCity}/>}/>
-          <Route path = ':city' element={<CityPage />}/>
+          <Route path={RouteParam.City} element={<CityPage />}/>
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute
               authorizationStatus={AUTH}
@@ -23,9 +23,9 @@ export default function App(): JSX.Element {
           }
           />
           <Route path={AppRoute.Login} element={<Login/>}/>
-          <Route path={AppRoute.Room} element={<Room/>}/>
+          <Route path={`${AppRoute.Room}/${RouteParam.Room}`} element={<Room />}/>
         </Route>
-        <Route path="*" element={<NotFound/>}/>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </BrowserRouter>);
 }

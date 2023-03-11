@@ -1,11 +1,11 @@
 import {PlacesProps} from '../../types/types';
-import {useParams, Navigate} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import Header from '../../components/header/header';
 import LocationsTabs from '../../components/locations-tabs/locations-tabs';
 import {CITIES} from '../../mocs/cities';
-import {AppRoute} from '../../setings';
 import Places from '../../components/places/places';
 import {OFFERS} from '../../mocs/offers';
+import NotFound from '../not-found/not-found';
 
 
 export default function CityPage() : JSX.Element {
@@ -13,7 +13,7 @@ export default function CityPage() : JSX.Element {
   const cityName: string = params.city as string;
   const cityIndex = CITIES.findIndex((element) => element.name === cityName);
   if (cityIndex < 0) {
-    return <Navigate to={AppRoute.Root}/>;
+    return <NotFound />;
   }
   const citiesOffers = OFFERS.filter((element) => element.city === cityIndex);
   const placesCount = citiesOffers.length;
