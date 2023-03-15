@@ -1,7 +1,12 @@
-import {FavoritesCityProps} from '../../types/types';
+import {PlaceData} from '../../types/types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../setings';
 import PlaceCard from '../place-card/place-card';
+
+export type FavoritesCityProps = {
+  offers: PlaceData[];
+  city: string;
+}
 
 export default function FavoritesCity({offers, city}: FavoritesCityProps): JSX.Element {
   return (
@@ -14,7 +19,7 @@ export default function FavoritesCity({offers, city}: FavoritesCityProps): JSX.E
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((element) => <PlaceCard {... {place: element, onActive: null}} key={element.id}/>)}
+        {offers.map((element) => <PlaceCard place={element} onActive={null} key={element.id}/>)}
       </div>
     </li>
   );
