@@ -1,38 +1,41 @@
-import {PlaceData} from '../../index';
+import {PlaceData} from '../../types/types';
+import {useLocation, Link} from 'react-router-dom';
+import {AppRoute, FavoritesCardStyles, OffersCardStyles} from '../../setings';
+import React from 'react';
+import RatingStars from '../rating-stars/rating-stars';
 
-export default function PlaceCard({price, type, title, isPremium, rating, previewImage, bookmark}: PlaceData): JSX.Element{
+export default function PlaceCard({place, onActive}: {place: PlaceData; onActive: ((id: number) => void) | null}): JSX.Element{
+  const {id, price, type, title, isPremium, rating, previewImage, isFavorite} = place;
+  const styles = useLocation().pathname === AppRoute.Favorites ? FavoritesCardStyles : OffersCardStyles;
   return (
-    <article className="cities__card place-card">
+    <article className={styles.ArticleClass} onMouseOverCapture={onActive ? () => onActive(id) : undefined}>
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={styles.WrapperClass}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={styles.ImgWidth} height={styles.ImgHeight} alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={styles.InfoClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{`€${price} `}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${bookmark ? 'place-card__bookmark-button--active' : ''} button`} type="button">
+          <button className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">{styles.BookmarkCaption}</span>
           </button>
         </div>
         <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: rating}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
+          <RatingStars rating={rating} className={'place-card__stars rating__stars'}/>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
