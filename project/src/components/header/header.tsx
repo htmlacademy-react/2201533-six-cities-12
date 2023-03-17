@@ -9,8 +9,6 @@ const getClassName = ({isActive}: {isActive: boolean}): string => isActive ? `${
 
 export default function Header(): JSX.Element {
   const isLogin = useLocation().pathname === AppRoute.Login;
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const isAuth = AUTH === AuthorizationStatus.Auth;
   return (
     <header className="header">
