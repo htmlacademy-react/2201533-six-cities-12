@@ -1,20 +1,11 @@
-export default function RoomHost(): JSX.Element {
+import {User} from '../../../types/types';
+import RoomUser, {Modes} from '../room-user/room-user';
+
+export default function RoomHost({host}: {host: User}): JSX.Element {
   return (
     <div className="property__host">
       <h2 className="property__host-title">Meet the host</h2>
-      <div className="property__host-user user">
-        <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-          <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74"
-            alt="Host avatar"
-          />
-        </div>
-        <span className="property__user-name">
-          Angelina
-        </span>
-        <span className="property__user-status">
-          Pro
-        </span>
-      </div>
+      <RoomUser user={host} mode={Modes.host}/>
       <div className="property__description">
         <p className="property__text">
           A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The

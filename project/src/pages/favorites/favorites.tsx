@@ -3,15 +3,10 @@ import FavoritesLocations from '../../components/favorites-locations/favorites-l
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../setings';
 import {OFFERS} from '../../mocs/offers';
-import {FavoritesProps} from '../../types/types';
 
 export default function Favorites(): JSX.Element{
   const favorites = OFFERS.filter((element) => element.isFavorite);
   const count = favorites.length;
-  const props: FavoritesProps = {
-    offers: favorites,
-    count: count
-  };
   return(
     <div className={`page${count ? '' : ' page--favorites-empty'}`}>
       <Header/>
@@ -19,7 +14,7 @@ export default function Favorites(): JSX.Element{
         <div className="page__favorites-container container">
           <section className={`favorites${count ? '' : ' favorites--empty'}`}>
             <h1 className="favorites__title">{count ? 'Saved listing' : 'Favorites (empty)'}</h1>
-            <FavoritesLocations {... props}/>
+            <FavoritesLocations offers={favorites} count={count}/>
           </section>
         </div>
       </main>

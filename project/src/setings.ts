@@ -95,7 +95,7 @@ export const TypeOffer = {
 type FeaturesKey = keyof typeof FeaturesPresent;
 export const FEATURES: FeaturesKey[] = ['type', 'bedrooms', 'maxAdults'];
 
-export const NEAR_OFFERS = [6, 7, 8, 9];
+export const NEAR_OFFERS = [6, 7, 8];
 
 export const AUTH = AuthorizationStatus.Auth;
 export const MAX_IMAGES = 6;

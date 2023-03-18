@@ -21,7 +21,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 1,
       maxAdults: 1
-    }
+    },
+    hostId: 10
   },
   {
     id: 2,//21
@@ -42,7 +43,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.room,
       bedrooms: 3,
       maxAdults: 2
-    }
+    },
+    hostId: 12
   },
   {
     id: 3,//4
@@ -63,7 +65,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 2,
       maxAdults: 3
-    }
+    },
+    hostId: 14
   },
   {
     id: 4,//8
@@ -84,7 +87,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 2,
       maxAdults: 1
-    }
+    },
+    hostId: 16
   },
   {
     id: 5,//18
@@ -105,7 +109,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 4,
       maxAdults: 2
-    }
+    },
+    hostId: 18
   },
   {
     id: 6,//23
@@ -126,7 +131,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 3,
       maxAdults: 3
-    }
+    },
+    hostId: 10
   },
   {
     id: 7,//11
@@ -147,7 +153,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.room,
       bedrooms: 1,
       maxAdults: 2
-    }
+    },
+    hostId: 12
   },
   {
     id: 8,//17
@@ -168,7 +175,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.apartment,
       bedrooms: 3,
       maxAdults: 7
-    }
+    },
+    hostId: 14
   },
   {
     id: 9,//26
@@ -189,7 +197,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.room,
       bedrooms: 1,
       maxAdults: 2
-    }
+    },
+    hostId: 16
   },
   {
     id: 10,//28
@@ -210,7 +219,8 @@ const OFFERS: PlaceData[] = [
       type: TypeOffer.room,
       bedrooms: 1,
       maxAdults: 1
-    }
+    },
+    hostId: 18
   },
 ];
 
