@@ -1,6 +1,10 @@
 import {AUTH, AuthorizationStatus} from '../../../setings';
 import ReviewsForm from '../reviews-form/reviews-form';
 import {REVIEWS} from '../../../mocs/reviews';
+import {USERS} from '../../../mocs/users';
+import RatingStars from '../../rating-stars/rating-stars';
+import RoomUser, {Modes} from '../room-user/room-user';
+import ReviewTime from '../review-time/review-time';
 
 export default function Reviews({id}: {id: number}): JSX.Element {
   const reviews = REVIEWS.filter((review) => review.idOffer === id);
@@ -10,32 +14,21 @@ export default function Reviews({id}: {id: number}): JSX.Element {
       <ul className="reviews__list">
         {reviews.map((review) => (
           <li className="reviews__item" key={review.id}>
-            <div className="reviews__user user">
-              <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54"
-                  alt="Reviews avatar"
-                />
-              </div>
-              <span className="reviews__user-name">
-              Max
-              </span>
-            </div>
+            <RoomUser user = {USERS.find((element) => element.id === review.userId) || USERS[0]}
+              mode={Modes.review}
+            />
             <div className="reviews__info">
               <div className="reviews__rating rating">
-                <div className="reviews__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
-                  <span className="visually-hidden">Rating</span>
-                </div>
+                <RatingStars rating={review.rating} className={'reviews__stars rating__stars'}/>
               </div>
               <p className="reviews__text">
-              A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-              The building is green and from 18th century.
+                {review.comment}
               </p>
-              <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+              <ReviewTime dateIso={review.date}/>
+              {/*<time className="reviews__time" dateTime="2019-04-24">April 2019</time>*/}
             </div>
           </li>
         ))}
-
       </ul>
       {AUTH === AuthorizationStatus.Auth && <ReviewsForm />}
     </section>

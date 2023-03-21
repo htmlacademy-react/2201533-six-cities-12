@@ -3,15 +3,10 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 export default function ReviewsForm(): JSX.Element {
   const [rating, setRating] = useState(0);
-  const [isFillReview, setIsFillReview] = useState(false);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const [review, setReview] = useState('');
 
   const onInputText = (evt: React.FormEvent<HTMLTextAreaElement>) => {
-    const textLength = evt.currentTarget.textLength;
-    if ((textLength < ReviewLength.Min) === isFillReview){
-      setIsFillReview(!isFillReview);
-    }
     setReview(evt.currentTarget.value);
   };
 
@@ -27,12 +22,12 @@ export default function ReviewsForm(): JSX.Element {
   };
 
   useEffect(() => {
-    setDisabledSubmit(!(isFillReview && rating > 0));
-  }, [isFillReview, rating]);
+    setDisabledSubmit(!(!(review.length < ReviewLength.Min) && rating > 0));
+  }, [review, rating]);
 
   return (
     <form className="reviews__form form" action="src/components/room/reviews-form/reviews-form#" method="post" onSubmit={onSubmit}>
-      <p className='visually-hidden'>{review}</p>
+      {/*<p className='visually-hidden'>{review}</p>*/}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {STAR_TITLES.map((element, index) => {
@@ -57,6 +52,7 @@ export default function ReviewsForm(): JSX.Element {
       <textarea className="reviews__textarea form__textarea" id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onInput={onInputText} maxLength={ReviewLength.Max}
+        value={review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

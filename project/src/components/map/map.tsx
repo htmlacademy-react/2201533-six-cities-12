@@ -15,7 +15,11 @@ export default function Map({className, center, points}: MapProps): JSX.Element 
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
   useEffect(() => {
-    if (map) {
+    if (map){
+      map.setView({
+        lat: center.latitude,
+        lng: center.longitude
+      });
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
@@ -26,7 +30,7 @@ export default function Map({className, center, points}: MapProps): JSX.Element 
           .addTo(map);
       });
     }
-  }, [map, points]);
+  }, [map, points, center]);
   return (
     <section className={`${className}__map map`} ref={mapRef}></section>
   );

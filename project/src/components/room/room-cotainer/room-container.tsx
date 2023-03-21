@@ -6,6 +6,7 @@ import RoomInsides from '../room-insides/room-insides';
 import RoomHost from '../room-host/room-host';
 import Reviews from '../reviews/reviews';
 import {PlaceData} from '../../../types/types';
+import {USERS} from '../../../mocs/users';
 
 export default function RoomContainer(offer: PlaceData): JSX.Element {
   return (
@@ -28,7 +29,7 @@ export default function RoomContainer(offer: PlaceData): JSX.Element {
           <span className="property__price-text">&nbsp;night</span>
         </div>
         <RoomInsides />
-        <RoomHost />
+        <RoomHost host={USERS.find((element) => element.id === offer.hostId) || USERS[0]}/>
         <Reviews id={offer.id}/>
       </div>
     </div>

@@ -32,6 +32,7 @@ export type PlaceData = {
   images: number[];
   location: MapLocation;
   features: OfferFeatures;
+  hostId: number;
 };
 
 export type CardStyles = {
@@ -43,3 +44,9 @@ export type CardStyles = {
   BookmarkCaption: string;
 };
 
+export type User = {
+  id: number;
+  isPro: boolean;
+  name: string;
+  avatarUrl: string;
+}
