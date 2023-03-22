@@ -19,7 +19,7 @@ export default function FavoritesCity({offers, city}: FavoritesCityProps): JSX.E
         </div>
       </div>
       <div className="favorites__places">
-        {offers.map((element) => <PlaceCard place={element} onActive={null} key={element.id}/>)}
+        {offers.map((element) => <PlaceCard {... element} key={element.id}/>)}
       </div>
     </li>
   );

@@ -1,21 +1,10 @@
-import {CardStyles} from './types/types';
 import {Icon} from 'leaflet';
-
-export const CitiesName = {
-  Paris: 'Paris',
-  Cologne: 'Cologne',
-  Brussels: 'Brussels',
-  Amsterdam: 'Amsterdam',
-  Hamburg: 'Hamburg',
-  Dusseldorf: 'Dusseldorf'
-} as const;
 
 export const AppRoute = {
   Root: '/',
   Favorites: '/favorites',
   Login: '/login',
   Room: '/offer',
-  DefaultCity: CitiesName.Paris
 } as const;
 
 export const RouteParam = {
@@ -28,37 +17,6 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
-
-export const SORTING_VARIANTS: string[] = [
-  'Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'
-];
-
-export const OffersCardStyles: CardStyles = {
-  ArticleClass: 'cities__card place-card',
-  WrapperClass: 'cities__image-wrapper place-card__image-wrapper',
-  ImgWidth: '260',
-  ImgHeight: '200',
-  InfoClass: 'place-card__info',
-  BookmarkCaption: 'To bookmarks'
-} as const;
-
-export const RoomCardStyles: CardStyles = {
-  ArticleClass: 'near-places__card place-card',
-  WrapperClass: 'near-places__image-wrapper place-card__image-wrapper',
-  ImgWidth: '260',
-  ImgHeight: '200',
-  InfoClass: 'place-card__info',
-  BookmarkCaption: 'To bookmarks'
-} as const;
-
-export const FavoritesCardStyles: CardStyles = {
-  ArticleClass: 'favorites__card place-card',
-  WrapperClass: 'favorites__image-wrapper place-card__image-wrapper',
-  ImgWidth: '150',
-  ImgHeight: '110',
-  InfoClass: 'favorites__card-info place-card__info',
-  BookmarkCaption: 'In bookmarks'
-} as const;
 
 export const STARS_COUNT = 5;
 export const STAR_TITLES = [
@@ -110,7 +68,7 @@ export const defaultMapMarker = new Icon({
 });
 
 export const activeMapMarker = new Icon({
-  iconUrl: 'img/pin-active',
+  iconUrl: 'img/pin-active.svg',
   iconSize: [ICON_WIDTH, ICON_HEIGHT],
   iconAnchor: [ICON_WIDTH / 2, ICON_HEIGHT]
 });
