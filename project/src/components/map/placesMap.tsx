@@ -1,9 +1,12 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/useMap';
-import {defaultMapMarker} from '../../setings';
+import {activeMapMarker, defaultMapMarker} from '../../setings';
 import {MapLocation, PlacePoint} from '../../types/types';
 import {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store';
+import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
 
 type MapProps = {
   className: string;
@@ -11,9 +14,21 @@ type MapProps = {
   points: PlacePoint[];
 }
 
-export default function Map({className, center, points}: MapProps): JSX.Element {
+export default function PlacesMap({className, center, points}: MapProps): JSX.Element {
+  let activeCard: number = NO_ACTIVE_CARD;
+  const markers = new Map<number, Marker>();
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
+  useSelector((state: RootState) => {
+    if (!map || activeCard === state.activeCard){
+      return;
+    }
+    const marker = state.activeCard === NO_ACTIVE_CARD ?
+      markers.get(activeCard) as Marker : markers.get(state.activeCard) as Marker;
+    const icon = state.activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
+    marker.setIcon(icon);
+    activeCard = state.activeCard;
+  });
   useEffect(() => {
     if (map){
       map.setView({
@@ -28,6 +43,7 @@ export default function Map({className, center, points}: MapProps): JSX.Element 
         marker
           .setIcon(defaultMapMarker)
           .addTo(map);
+        markers.set(point.id, marker);
       });
     }
   }, [map, points, center]);

@@ -1,17 +1,15 @@
 import {CardStyles, PlaceData} from '../../types/types';
 import {useLocation, Link, useParams} from 'react-router-dom';
-import {AppRoute, FavoritesCardStyles, OffersCardStyles, RoomCardStyles} from '../../setings';
+import {AppRoute} from '../../setings';
 import React from 'react';
 import RatingStars from '../rating-stars/rating-stars';
 import PremiumMark from '../premium-mark/premium-mark';
 import FavoriteButton from '../favorite-button/favorite-button';
+import {store} from '../../store';
+import {activateCard} from '../../store/actions';
+import {FavoritesCardStyles, NO_ACTIVE_CARD, OffersCardStyles, RoomCardStyles} from '../../consts/place-card-consts';
 
-type PlaceCardProps = {
-  place: PlaceData;
-  onActive: ((id: number) => void) | null;
-}
-
-export default function PlaceCard({place, onActive}: PlaceCardProps): JSX.Element{
+export default function PlaceCard(place: PlaceData): JSX.Element{
   const {id, price, features, title, isPremium, rating, previewImage, isFavorite} = place;
   const {type} = features;
   const path = useLocation().pathname;
@@ -26,10 +24,15 @@ export default function PlaceCard({place, onActive}: PlaceCardProps): JSX.Elemen
     default: styles = OffersCardStyles;
   }
   return (
-    <article className={styles.ArticleClass} onMouseOverCapture={onActive ? () => onActive(id) : undefined}>
+    <article className={styles.ArticleClass}
+      onMouseEnter={() => store.dispatch(activateCard(id))}
+      onMouseLeave={() => store.dispatch(activateCard(NO_ACTIVE_CARD))}
+    >
       {isPremium && <PremiumMark className='place-card'/>}
       <div className={styles.WrapperClass}>
-        <Link to={`${AppRoute.Room}/${id}`}>
+        <Link to={`${AppRoute.Room}/${id}`}
+          onClick={() => store.dispatch(activateCard(NO_ACTIVE_CARD))}
+        >
           <img className="place-card__image" src={previewImage} width={styles.ImgWidth} height={styles.ImgHeight} alt="Place image"/>
         </Link>
       </div>
@@ -45,7 +48,10 @@ export default function PlaceCard({place, onActive}: PlaceCardProps): JSX.Elemen
           <RatingStars rating={rating} className={'place-card__stars rating__stars'}/>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Room}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Room}/${id}`}
+            onClick={() => store.dispatch(activateCard(NO_ACTIVE_CARD))}
+          >{title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

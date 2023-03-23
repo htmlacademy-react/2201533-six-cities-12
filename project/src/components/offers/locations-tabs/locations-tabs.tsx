@@ -1,6 +1,6 @@
-import {CITIES} from '../../mocs/cities';
+import {CITIES} from '../../../store/cities';
 import {NavLink} from 'react-router-dom';
-import {AppRoute} from '../../setings';
+import {AppRoute} from '../../../setings';
 
 const CLASS = 'locations__item-link tabs__item';
 const ACTIVE_CLASS = 'tabs__item--active';

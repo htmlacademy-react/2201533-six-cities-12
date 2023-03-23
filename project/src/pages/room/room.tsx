@@ -6,8 +6,8 @@ import {MAX_IMAGES, NEAR_OFFERS} from '../../setings';
 import RoomGallery from '../../components/room/room-gallery/room-gallery';
 import RoomContainer from '../../components/room/room-cotainer/room-container';
 import PlaceCard from '../../components/place-card/place-card';
-import Map from '../../components/map/map';
-import {CITIES} from '../../mocs/cities';
+import PlacesMap from '../../components/map/placesMap';
+import {CITIES} from '../../store/cities';
 
 export default function Room(): JSX.Element{
   const id: number = parseInt(useParams().id as string, 10);
@@ -23,7 +23,7 @@ export default function Room(): JSX.Element{
         <section className="property">
           <RoomGallery images={offer.images.slice(0, MAX_IMAGES)}/>
           <RoomContainer {... offer}/>
-          <Map {... {
+          <PlacesMap {... {
             className: 'property',
             center: CITIES[3].location,
             points: Array.from(NEAR_OFFERS, (offerIndex) => ({
@@ -37,7 +37,7 @@ export default function Room(): JSX.Element{
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {NEAR_OFFERS.map((element) => <PlaceCard place={OFFERS[element]} onActive={null} key={OFFERS[element].id}/>)}
+              {NEAR_OFFERS.map((element) => <PlaceCard {... OFFERS[element]} key={OFFERS[element].id}/>)}
             </div>
           </section>
         </div>

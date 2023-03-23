@@ -1,6 +1,6 @@
 import {PlaceData} from '../../types/types';
 import FavoritesCity from '../favorites-city/favorites-city';
-import {CITIES} from '../../mocs/cities';
+import {CITIES} from '../../store/cities';
 
 export type FavoritesProps = {
   offers: PlaceData[];

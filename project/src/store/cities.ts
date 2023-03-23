@@ -1,5 +1,13 @@
 import {City} from '../types/types';
-import {CitiesName} from '../setings';
+
+export const CitiesName = {
+  Paris: 'Paris',
+  Cologne: 'Cologne',
+  Brussels: 'Brussels',
+  Amsterdam: 'Amsterdam',
+  Hamburg: 'Hamburg',
+  Dusseldorf: 'Dusseldorf'
+} as const;
 
 const CITIES: City[] = [
   {
@@ -52,4 +60,6 @@ const CITIES: City[] = [
   },
 ];
 
+export const DEFAULT_CITY_INDEX = 0;
+export const DEFAULT_CITY = CITIES[DEFAULT_CITY_INDEX].name;
 export {CITIES};
