@@ -5,8 +5,8 @@ import Features from '../features/features';
 import RoomInsides from '../room-insides/room-insides';
 import RoomHost from '../room-host/room-host';
 import Reviews from '../reviews/reviews';
-import {PlaceData} from '../../../types/types';
 import {USERS} from '../../../mocs/users';
+import {PlaceData} from '../../../types/place-data-types';
 
 export default function RoomContainer(offer: PlaceData): JSX.Element {
   return (

@@ -1,5 +1,5 @@
-import {PlaceData} from '../types/types';
 import {SortOptions} from '../types/sort-types';
+import {PlaceData} from '../types/place-data-types';
 
 export const Order = {
   up: 1,

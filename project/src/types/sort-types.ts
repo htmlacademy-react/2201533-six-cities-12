@@ -1,4 +1,4 @@
-import {PlaceData} from './types';
+import {PlaceData} from './place-data-types';
 
 export type SortOptions = {
   text: string;
