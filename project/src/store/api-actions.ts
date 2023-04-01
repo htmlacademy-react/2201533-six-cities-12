@@ -28,12 +28,12 @@ export const fetchOffer = createAsyncThunk<void, number, {
   extra: AxiosInstance;
 }>(
   TypeAction.fetchOffer,
-  async(id, {dispatch, extra: api}) => {
+  async(id, {dispatch, extra: axiosApi}) => {
     dispatch(setLoadingOffer(true));
     const results = await Promise.all([
-      api.get<RawPlace>(`${APIRoute.Offers}/${id.toString()}`),
-      api.get<RawPlace[]>(`${APIRoute.Offers}/${id.toString()}/nearby`),
-      api.get<Comment[]>(`${APIRoute.Comments}/${id.toString()}`),
+      axiosApi.get<RawPlace>(`${APIRoute.Offers}/${id.toString()}`),
+      axiosApi.get<RawPlace[]>(`${APIRoute.Offers}/${id.toString()}/nearby`),
+      axiosApi.get<Comment[]>(`${APIRoute.Comments}/${id.toString()}`),
     ]);
     results.forEach((result: AxiosResponse<RawPlaceData>, index) => {
       dispatch(loaders[index](result.data));
