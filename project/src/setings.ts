@@ -12,6 +12,11 @@ export const RouteParam = {
   Room: ':id'
 } as const;
 
+export const APIRoute = {
+  Offers: '/hotels',
+  Comments: '/comments',
+} as const;
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -72,3 +77,6 @@ export const activeMapMarker = new Icon({
   iconSize: [ICON_WIDTH, ICON_HEIGHT],
   iconAnchor: [ICON_WIDTH / 2, ICON_HEIGHT]
 });
+
+export const BASE_URL = 'https://12.react.pages.academy/six-cities';
+export const REQUEST_TIMEOUT = 5000;

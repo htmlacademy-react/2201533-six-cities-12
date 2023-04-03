@@ -1,21 +1,36 @@
 import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
-import {OFFERS} from '../../mocs/offers';
 import NotFound from '../not-found/not-found';
-import {MAX_IMAGES, NEAR_OFFERS} from '../../setings';
+import {MAX_IMAGES} from '../../setings';
 import RoomGallery from '../../components/room/room-gallery/room-gallery';
 import RoomContainer from '../../components/room/room-cotainer/room-container';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesMap from '../../components/map/placesMap';
-import {CITIES} from '../../store/cities';
+import {store} from '../../store';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import Loading from '../loading/loading';
+import {fetchOffer} from '../../store/api-actions';
+import {useEffect, useRef} from 'react';
 
 export default function Room(): JSX.Element{
   const id: number = parseInt(useParams().id as string, 10);
-  const offer = OFFERS.find((element) => element.id === id);
+  const isFetched = useRef<boolean>(false);
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector((state) => state.isOfferLoading);
+  useEffect(() => {
+    if (!isFetched.current){
+      dispatch(fetchOffer(id));
+      isFetched.current = true;
+    }
+  }, [id]);
+  if (isLoading){
+    return <Loading/>;
+  }
+  const offer = store.getState().selectedOffer;
+  const near = store.getState().nearOffers;
   if (!offer) {
     return <NotFound />;
   }
-
   return (
     <div className="page">
       <Header/>
@@ -25,11 +40,15 @@ export default function Room(): JSX.Element{
           <RoomContainer {... offer}/>
           <PlacesMap {... {
             className: 'property',
-            center: CITIES[3].location,
-            points: Array.from(NEAR_OFFERS, (offerIndex) => ({
-              id: OFFERS[offerIndex].id,
-              location: OFFERS[offerIndex].location
-            }))
+            center: offer.location,
+            points: Array.from(near, (nearOffer) => ({
+              id: nearOffer.id,
+              location: nearOffer.location
+            })),
+            currentPoint: {
+              id: offer.id,
+              location: offer.location
+            }
           }}
           />
         </section>
@@ -37,7 +56,7 @@ export default function Room(): JSX.Element{
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {NEAR_OFFERS.map((element) => <PlaceCard {... OFFERS[element]} key={OFFERS[element].id}/>)}
+              {near.map((nearOffer) => <PlaceCard {... nearOffer} key={nearOffer.id}/>)}
             </div>
           </section>
         </div>

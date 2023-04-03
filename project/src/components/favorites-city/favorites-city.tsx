@@ -1,7 +1,7 @@
-import {PlaceData} from '../../types/types';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../setings';
 import PlaceCard from '../place-card/place-card';
+import {PlaceData} from '../../types/place-data-types';
 
 export type FavoritesCityProps = {
   offers: PlaceData[];

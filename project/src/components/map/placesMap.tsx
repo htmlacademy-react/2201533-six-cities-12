@@ -5,17 +5,18 @@ import {MapLocation, PlacePoint} from '../../types/types';
 import {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../store';
+import {RootState, store} from '../../store';
 import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
 
 type MapProps = {
   className: string;
   center: MapLocation;
   points: PlacePoint[];
+  currentPoint?: PlacePoint;
 }
 
-export default function PlacesMap({className, center, points}: MapProps): JSX.Element {
-  let activeCard: number = NO_ACTIVE_CARD;
+export default function PlacesMap({className, center, points, currentPoint}: MapProps): JSX.Element {
+  let activeCard: number = store.getState().activeCard;
   const markers = new Map<number, Marker>();
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
@@ -45,6 +46,15 @@ export default function PlacesMap({className, center, points}: MapProps): JSX.El
           .addTo(map);
         markers.set(point.id, marker);
       });
+      if (currentPoint){
+        const currentMarker = new Marker({
+          lat: currentPoint.location.latitude,
+          lng: currentPoint.location.longitude
+        });
+        currentMarker
+          .setIcon(activeMapMarker)
+          .addTo(map);
+      }
     }
   }, [map, points, center]);
   return (

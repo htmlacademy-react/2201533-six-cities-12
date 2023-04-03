@@ -14,27 +14,6 @@ export type PlacePoint = {
   location: MapLocation;
 }
 
-export type OfferFeatures = {
-  type: string;
-  bedrooms: number;
-  maxAdults: number;
-}
-
-export type PlaceData = {
-  id: number;
-  price: number;
-  title: string;
-  isPremium: boolean;
-  previewImage: string;
-  rating: number;
-  city: number;
-  isFavorite: boolean;
-  images: number[];
-  location: MapLocation;
-  features: OfferFeatures;
-  hostId: number;
-};
-
 export type CardStyles = {
   ArticleClass: string;
   WrapperClass: string;

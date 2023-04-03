@@ -1,10 +1,20 @@
 import {CITIES, DEFAULT_CITY_INDEX} from './cities';
 import {SORTING_VARIANTS, SortingVariants, Order} from '../consts/sort-consts';
-import {PlaceData} from '../types/types';
 import {createReducer} from '@reduxjs/toolkit';
-import {activateCard, changeCity, fillOffers, selectSortingVariant} from './actions';
+import {
+  activateCard,
+  addUser,
+  changeCity,
+  fillOffers, loadComments, loadNear, loadOffer,
+  loadOffers,
+  selectSortingVariant,
+  setLoadedOffers, setLoadingOffer
+} from './actions';
 import {OFFERS} from '../mocs/offers';
 import {NO_ACTIVE_CARD} from '../consts/place-card-consts';
+import {PlaceData, RawPlace, Comment} from '../types/place-data-types';
+import {User} from '../types/types';
+import {adaptPlace} from './adapter';
 
 const initialState = {
   cities: CITIES,
@@ -14,8 +24,15 @@ const initialState = {
   offersCount: 0,
   city: CITIES[DEFAULT_CITY_INDEX],
   sortingVariant: SortingVariants.Default as number,
-  activeCard: NO_ACTIVE_CARD
+  activeCard: NO_ACTIVE_CARD,
+  hosts: [] as User[],
+  isOffersLoaded: false,
+  selectedOffer: null as unknown as PlaceData,
+  nearOffers: [] as PlaceData[],
+  comments: [] as Comment[],
+  isOfferLoading: false
 };
+
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
@@ -39,5 +56,29 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(activateCard, (state, action) => {
       state.activeCard = action.payload;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload.map((raw) => adaptPlace(raw)).filter((offer) => offer.city > -1);
+      const hosts: User[] = action.payload.map((raw) => raw.host);
+      const hostIds = new Set(hosts.map((user) => user.id));
+      state.hosts = Array.from(hostIds, (id) => hosts.find((host) => host.id === id)) as User[];
+    })
+    .addCase(loadOffer, (state, action) => {
+      state.selectedOffer = adaptPlace(action.payload as RawPlace) ?? null;
+    })
+    .addCase(loadNear, (state, action) => {
+      state.nearOffers = (action.payload as RawPlace[]).map((raw) => adaptPlace(raw));
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload as Comment[];
+    })
+    .addCase(addUser, (state, action) => {
+      state.hosts.push(action.payload);
+    })
+    .addCase(setLoadedOffers, (state, action) => {
+      state.isOffersLoaded = action.payload;
+    })
+    .addCase(setLoadingOffer, (state, action) => {
+      state.isOfferLoading = action.payload;
     });
 });

@@ -7,8 +7,15 @@ import Room from '../../pages/room/room';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route';
 import {DEFAULT_CITY} from '../../store/cities';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../store';
+import Loading from '../../pages/loading/loading';
 
 export default function App(): JSX.Element {
+  const isLoaded = useSelector((state: RootState) => state.isOffersLoaded);
+  if (!isLoaded){
+    return (<Loading/>);
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +31,10 @@ export default function App(): JSX.Element {
           }
           />
           <Route path={AppRoute.Login} element={<Login/>}/>
-          <Route path={`${AppRoute.Room}/${RouteParam.Room}`} element={<Room />}/>
+          <Route
+            path={`${AppRoute.Room}/${RouteParam.Room}`}
+            element={<Room />}
+          />
         </Route>
         <Route path="*" element={<NotFound />}/>
       </Routes>
