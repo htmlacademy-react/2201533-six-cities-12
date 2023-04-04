@@ -1,5 +1,5 @@
 import {useLocation, NavLink} from 'react-router-dom';
-import {AppRoute, AUTH, AuthorizationStatus} from '../../setings';
+import {AppRoute} from '../../setings';
 import RightHeader from '../right-header/right-header';
 
 const CLASS = 'header__logo-link';
@@ -9,7 +9,6 @@ const getClassName = ({isActive}: {isActive: boolean}): string => isActive ? `${
 
 export default function Header(): JSX.Element {
   const isLogin = useLocation().pathname === AppRoute.Login;
-  const isAuth = AUTH === AuthorizationStatus.Auth;
   return (
     <header className="header">
       <div className="container">
@@ -19,7 +18,7 @@ export default function Header(): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
             </NavLink>
           </div>
-          {!isLogin && <RightHeader isAuth = {isAuth}/>}
+          {!isLogin && <RightHeader/>}
         </div>
       </div>
     </header>

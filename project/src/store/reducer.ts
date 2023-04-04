@@ -7,7 +7,7 @@ import {
   changeCity,
   fillOffers, loadComments, loadNear, loadOffer,
   loadOffers,
-  selectSortingVariant,
+  selectSortingVariant, setAuthorizationStatus, setEmail,
   setLoadedOffers, setLoadingOffer
 } from './actions';
 import {OFFERS} from '../mocs/offers';
@@ -15,6 +15,7 @@ import {NO_ACTIVE_CARD} from '../consts/place-card-consts';
 import {PlaceData, RawPlace, Comment} from '../types/place-data-types';
 import {User} from '../types/types';
 import {adaptPlace} from './adapter';
+import {AuthorizationStatus} from '../setings';
 
 const initialState = {
   cities: CITIES,
@@ -30,7 +31,9 @@ const initialState = {
   selectedOffer: null as unknown as PlaceData,
   nearOffers: [] as PlaceData[],
   comments: [] as Comment[],
-  isOfferLoading: false
+  isOfferLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userEmail: ''
 };
 
 
@@ -80,5 +83,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadingOffer, (state, action) => {
       state.isOfferLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setEmail, (state, action) => {
+      state.userEmail = action.payload;
     });
 });

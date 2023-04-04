@@ -2,6 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 import {RawPlace, RawPlaceData} from '../types/place-data-types';
 import {User} from '../types/types';
 import {TypeAction} from './typeAction';
+import {AuthorizationStatus, AppRoute} from '../setings';
 
 export const fillOffers = createAction('fillOffers');
 export const changeCity = createAction(TypeAction.changeCity, (cityIndex: number) => ({
@@ -33,4 +34,13 @@ export const loadNear = createAction(TypeAction.loadNear, (data: RawPlaceData) =
 }));
 export const loadComments = createAction(TypeAction.loadComments, (data: RawPlaceData) => ({
   payload: data
+}));
+export const setAuthorizationStatus = createAction(TypeAction.setAuthorizationStatus, (status: AuthorizationStatus) => ({
+  payload: status
+}));
+export const redirectToRoute = createAction(TypeAction.redirectToRoute, (route: AppRoute) => ({
+  payload: route
+}));
+export const setEmail = createAction(TypeAction.setEmail, (email: string) => ({
+  payload: email
 }));

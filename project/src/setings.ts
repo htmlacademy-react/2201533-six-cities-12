@@ -1,11 +1,12 @@
 import {Icon} from 'leaflet';
 
-export const AppRoute = {
-  Root: '/',
-  Favorites: '/favorites',
-  Login: '/login',
-  Room: '/offer',
-} as const;
+export enum AppRoute {
+  Root = '/',
+  Favorites = '/favorites',
+  Login = '/login',
+  Room = '/offer',
+  Comments = '/comments',
+}
 
 export const RouteParam = {
   City: ':city',
@@ -15,6 +16,7 @@ export const RouteParam = {
 export const APIRoute = {
   Offers: '/hotels',
   Comments: '/comments',
+  Login: '/login',
 } as const;
 
 export enum AuthorizationStatus {

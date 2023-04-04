@@ -5,10 +5,12 @@ import Features from '../features/features';
 import RoomInsides from '../room-insides/room-insides';
 import RoomHost from '../room-host/room-host';
 import Reviews from '../reviews/reviews';
-import {USERS} from '../../../mocs/users';
 import {PlaceData} from '../../../types/place-data-types';
+import {store} from '../../../store';
 
 export default function RoomContainer(offer: PlaceData): JSX.Element {
+  const hosts = store.getState().hosts;
+  const host = hosts.find((element) => element.id === offer.hostId) || hosts[0];
   return (
     <div className="property__container container">
       <div className="property__wrapper">
@@ -28,9 +30,9 @@ export default function RoomContainer(offer: PlaceData): JSX.Element {
           <b className="property__price-value">{`€${offer.price} `}</b>
           <span className="property__price-text">&nbsp;night</span>
         </div>
-        <RoomInsides />
-        <RoomHost host={USERS.find((element) => element.id === offer.hostId) || USERS[0]}/>
-        <Reviews id={offer.id}/>
+        <RoomInsides insides={offer.goods}/>
+        <RoomHost host={host}/>
+        <Reviews />
       </div>
     </div>
   );

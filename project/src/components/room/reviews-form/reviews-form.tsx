@@ -1,10 +1,13 @@
 import {ReviewLength, STAR_TITLES, STARS_COUNT} from '../../../setings';
 import React, {Fragment, useEffect, useState} from 'react';
+import {useAppDispatch} from '../../../hooks';
+import {postComment} from '../../../store/api-actions';
 
 export default function ReviewsForm(): JSX.Element {
   const [rating, setRating] = useState(0);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const [review, setReview] = useState('');
+  const dispatch = useAppDispatch();
 
   const onInputText = (evt: React.FormEvent<HTMLTextAreaElement>) => {
     setReview(evt.currentTarget.value);
@@ -19,6 +22,7 @@ export default function ReviewsForm(): JSX.Element {
 
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
+    dispatch(postComment({comment: review, rating: rating}));
   };
 
   useEffect(() => {
