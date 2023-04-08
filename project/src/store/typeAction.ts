@@ -10,5 +10,12 @@ export const TypeAction = {
   setIsOffersLoaded: 'setIsOffersLoaded',
   fetchOffers: 'fetchOffers',
   fetchOffer: 'fetchOffer',
-  setOfferLoading: 'setOfferLoading'
+  checkAuth: 'checkAuth',
+  authorization: 'authorization',
+  redirect: 'redirect',
+  redirectToRoute: 'redirectToRoute',
+  postComment: 'postComment',
+  setOfferLoading: 'setOfferLoading',
+  setAuthorizationStatus: 'setAuthorizationStatus',
+  setEmail: 'setEmail'
 } as const;

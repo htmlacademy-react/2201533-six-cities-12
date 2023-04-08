@@ -1,7 +1,11 @@
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../setings';
+import {AppRoute, AuthorizationStatus} from '../../setings';
+import {useSelector} from 'react-redux';
+import {RootState, store} from '../../store';
 
-export default function RightHeader({isAuth} : {isAuth: boolean}): JSX.Element {
+export default function RightHeader(): JSX.Element {
+  const isAuth = useSelector((state: RootState) => state.authorizationStatus === AuthorizationStatus.Auth);
+  const email = store.getState().userEmail;
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -10,7 +14,7 @@ export default function RightHeader({isAuth} : {isAuth: boolean}): JSX.Element {
             <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
-              <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+              <span className="header__user-name user__name">{email}</span>
               <span className="header__favorite-count">3</span>
             </Link> :
             <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
