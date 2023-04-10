@@ -1,5 +1,5 @@
 import React from 'react';
-import {STARS_COUNT} from '../../setings';
+import {STARS_COUNT} from '../../settings';
 
 type RatingStarProps = {
   rating: number; className: string;

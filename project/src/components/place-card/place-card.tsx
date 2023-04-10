@@ -1,6 +1,6 @@
 import {CardStyles} from '../../types/types';
 import {useLocation, Link, useParams} from 'react-router-dom';
-import {AppRoute} from '../../setings';
+import {AppRoute} from '../../settings';
 import React from 'react';
 import RatingStars from '../rating-stars/rating-stars';
 import PremiumMark from '../premium-mark/premium-mark';

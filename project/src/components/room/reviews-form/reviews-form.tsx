@@ -1,4 +1,4 @@
-import {ReviewLength, STAR_TITLES, STARS_COUNT} from '../../../setings';
+import {ReviewLength, STAR_TITLES, STARS_COUNT} from '../../../settings';
 import React, {Fragment, useEffect, useState} from 'react';
 import {useAppDispatch} from '../../../hooks';
 import {postComment} from '../../../store/api-actions';

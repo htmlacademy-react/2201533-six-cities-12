@@ -1,4 +1,4 @@
-import {AuthorizationStatus} from '../../../setings';
+import {AuthorizationStatus} from '../../../settings';
 import ReviewsForm from '../reviews-form/reviews-form';
 import RatingStars from '../../rating-stars/rating-stars';
 import RoomUser, {Modes} from '../room-user/room-user';

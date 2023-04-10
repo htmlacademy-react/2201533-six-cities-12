@@ -1,6 +1,6 @@
 import CityPage from '../../pages/city-page/citi-page';
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {AppRoute, RouteParam} from '../../setings';
+import {AppRoute, RouteParam} from '../../settings';
 import Favorites from '../../pages/favorites/favorites';
 import Login from '../../pages/login/login';
 import Room from '../../pages/room/room';

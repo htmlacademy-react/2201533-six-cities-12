@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../setings';
+import {AppRoute, AuthorizationStatus} from '../../settings';
 import {useSelector} from 'react-redux';
 import {RootState, store} from '../../store';
 

@@ -1,4 +1,4 @@
-import {AppRoute, AuthorizationStatus} from '../setings';
+import {AppRoute, AuthorizationStatus} from '../settings';
 import {Navigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store';

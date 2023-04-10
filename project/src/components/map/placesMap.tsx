@@ -1,6 +1,6 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/useMap';
-import {activeMapMarker, defaultMapMarker} from '../../setings';
+import {activeMapMarker, defaultMapMarker} from '../../settings';
 import {MapLocation, PlacePoint} from '../../types/types';
 import {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';

@@ -3,7 +3,7 @@ import {OfferData, OfferStore} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings';
 import {adaptPlace, loaders} from '../adapter';
-import {fetchOffer} from '../api-actions';
+import {fetchOffer, postComment} from '../api-actions';
 
 const initialState: OfferStore = {
   selectedOffer: null as unknown as PlaceData,
@@ -16,18 +16,18 @@ export const offerData = createSlice({
   name: NameSpace.Offer,
   initialState,
   reducers: {
-    loadOffer: (state, action: PayloadAction<RawPlace>) => {
-      state.selectedOffer = adaptPlace(action.payload) ?? null;
-    },
-    loadNear: (state, action: PayloadAction<RawPlace[]>) => {
-      state.nearOffers = action.payload.map((raw) => adaptPlace(raw));
-    },
-    loadComments: (state, action: PayloadAction<Comment[]>) => {
-      state.comments = action.payload;
-    },
-    setLoadingOffer: (state, action: PayloadAction<boolean>) => {
-      state.isOfferLoading = action.payload;
-    }
+    // loadOffer: (state, action: PayloadAction<RawPlace>) => {
+    //   state.selectedOffer = adaptPlace(action.payload) ?? null;
+    // },
+    // loadNear: (state, action: PayloadAction<RawPlace[]>) => {
+    //   state.nearOffers = action.payload.map((raw) => adaptPlace(raw));
+    // },
+    // loadComments: (state, action: PayloadAction<Comment[]>) => {
+    //   state.comments = action.payload;
+    // },
+    // setLoadingOffer: (state, action: PayloadAction<boolean>) => {
+    //   state.isOfferLoading = action.payload;
+    // }
   },
   extraReducers(builder) {
     builder
@@ -48,8 +48,10 @@ export const offerData = createSlice({
               break;
           }
         });
+        state.isOfferLoading = false;
+      })
+      .addCase(postComment.fulfilled, (state: OfferStore, action: PayloadAction<Comment[]>) => {
+        state.comments = action.payload;
       });
   }
 });
-
-export const {loadOffer, setLoadingOffer, loadNear, loadComments} = offerData.actions;

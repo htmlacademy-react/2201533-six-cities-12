@@ -17,8 +17,7 @@ import {TypeAction} from './typeAction';
 import {AxiosInstance, AxiosResponse} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
 import {saveToken} from '../servises/token';
-import {CommentType} from '../types/comment-type';
-import {loadComments} from './offer/offer';
+import {CommentType, PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
 
 
@@ -56,7 +55,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
   async(_,{extra: axiosApi}) => await axiosApi.get(APIRoute.Login)
 );
 
-export const loginAction = createAsyncThunk<void, AuthType, {
+export const loginAction = createAsyncThunk<UserType, AuthType, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
@@ -65,22 +64,21 @@ export const loginAction = createAsyncThunk<void, AuthType, {
   async ({email, password}, {dispatch, extra: axiosApi}) => {
     const {data} = await axiosApi.post<UserType>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-    dispatch(setEmail(data.email));
     dispatch(redirectToRoute(AppRoute.Root));
+    return data;
   },
 );
 
-export const postComment = createAsyncThunk<void, CommentType, {
+export const postComment = createAsyncThunk<Comment[], PostCommentType, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.postComment,
-  async ({comment, rating},
-    {dispatch, getState, extra: axiosApi}) => {
-    const url = `${APIRoute.Comments}/${getState().selectedOffer.id}`;
-    const {data} = await axiosApi.post<Comment[]>(url, {comment, rating});
-    dispatch(loadComments(data));
+  async ({comment, id},
+    {extra: axiosApi}) => {
+    const url = `${APIRoute.Comments}/${id}`;
+    const {data} = await axiosApi.post<Comment[]>(url, comment);
+    return data;
   },
 );
