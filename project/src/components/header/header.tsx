@@ -1,5 +1,5 @@
 import {useLocation, NavLink} from 'react-router-dom';
-import {AppRoute} from '../../setings';
+import {AppRoute} from '../../settings';
 import RightHeader from '../right-header/right-header';
 
 const CLASS = 'header__logo-link';

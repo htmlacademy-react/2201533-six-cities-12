@@ -5,7 +5,6 @@ export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   Room = '/offer',
-  Comments = '/comments',
 }
 
 export const RouteParam = {
@@ -82,3 +81,11 @@ export const activeMapMarker = new Icon({
 
 export const BASE_URL = 'https://12.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+
+export enum NameSpace {
+  User = 'USER',
+  City = 'CITY',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  FetchOffers = 'FETCH_OFFERS',
+}
