@@ -2,7 +2,7 @@ import {UserProcess} from '../../types/state-types';
 import {AuthorizationStatus, NameSpace} from '../../settings';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {checkAuth, loginAction} from '../api-actions';
-import {UserType} from "../../types/user-types";
+import {UserType} from '../../types/user-types';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,

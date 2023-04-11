@@ -1,11 +1,11 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/useMap';
-import {activeMapMarker, defaultMapMarker} from '../../settings';
+import {activeMapMarker, defaultMapMarker, NameSpace} from '../../settings';
 import {MapLocation, PlacePoint} from '../../types/types';
 import {Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useSelector} from 'react-redux';
-import {RootState, store} from '../../store';
+import {RootState} from '../../store';
 import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
 
 type MapProps = {
@@ -16,19 +16,23 @@ type MapProps = {
 }
 
 export default function PlacesMap({className, center, points, currentPoint}: MapProps): JSX.Element {
-  let activeCard: number = store.getState().activeCard;
+  const prevActiveCard = useRef(NO_ACTIVE_CARD);
+  //let activeCard: number = store.getState().activeCard;
   const markers = new Map<number, Marker>();
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
-  useSelector((state: RootState) => {
-    if (!map || activeCard === state.activeCard){
-      return;
+  prevActiveCard.current = useSelector((state: RootState) => {
+    console.log(prevActiveCard.current);
+    const activeCard = state[NameSpace.City].activeCard;
+    console.log(activeCard);
+    if (!map || prevActiveCard.current === activeCard){
+      return prevActiveCard.current;
     }
-    const marker = state.activeCard === NO_ACTIVE_CARD ?
-      markers.get(activeCard) as Marker : markers.get(state.activeCard) as Marker;
-    const icon = state.activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
+    const marker = activeCard === NO_ACTIVE_CARD ?
+      markers.get(prevActiveCard.current) as Marker : markers.get(activeCard) as Marker;
+    const icon = activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
     marker.setIcon(icon);
-    activeCard = state.activeCard;
+    return activeCard;
   });
   useEffect(() => {
     if (map){

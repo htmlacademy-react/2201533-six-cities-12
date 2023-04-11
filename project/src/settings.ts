@@ -87,5 +87,4 @@ export enum NameSpace {
   City = 'CITY',
   Offers = 'OFFERS',
   Offer = 'OFFER',
-  FetchOffers = 'FETCH_OFFERS',
 }

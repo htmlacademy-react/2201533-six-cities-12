@@ -1,6 +1,6 @@
 import {City, MapLocation, User} from './types';
 import {TypeOffer} from '../settings';
-import {OfferData, OfferStore} from './state-types';
+import {OfferData} from './state-types';
 
 export type OfferFeatures = {
   type: string;

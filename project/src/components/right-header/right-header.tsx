@@ -1,11 +1,11 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../settings';
-import {useSelector} from 'react-redux';
-import {RootState, store} from '../../store';
+import {AppRoute} from '../../settings';
+import {useAppSelector} from '../../hooks';
+import {getIsAuth, getUserEmail} from '../../store/user-process/user-selectors';
 
 export default function RightHeader(): JSX.Element {
-  const isAuth = useSelector((state: RootState) => state.authorizationStatus === AuthorizationStatus.Auth);
-  const email = store.getState().userEmail;
+  const isAuth = useAppSelector(getIsAuth);
+  const email = useAppSelector(getUserEmail);
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">

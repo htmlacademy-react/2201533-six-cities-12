@@ -1,14 +1,14 @@
-import {AuthorizationStatus} from '../../../settings';
 import ReviewsForm from '../reviews-form/reviews-form';
 import RatingStars from '../../rating-stars/rating-stars';
 import RoomUser, {Modes} from '../room-user/room-user';
 import ReviewTime from '../review-time/review-time';
-import {RootState} from '../../../store';
-import {useSelector} from 'react-redux';
+import {useAppSelector} from '../../../hooks';
+import {getIsAuth} from '../../../store/user-process/user-selectors';
+import {getComments} from '../../../store/offer/offer-selectors';
 
-export default function Reviews(): JSX.Element {
-  const auth = useSelector((state: RootState) => state.authorizationStatus);
-  const reviews = useSelector((state: RootState) => state.comments);
+export default function Reviews({id}: {id: number}): JSX.Element {
+  const isAuth = useAppSelector(getIsAuth);
+  const reviews = useAppSelector(getComments);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
@@ -30,7 +30,7 @@ export default function Reviews(): JSX.Element {
           </li>
         ))}
       </ul>
-      {auth === AuthorizationStatus.Auth && <ReviewsForm />}
+      {isAuth && <ReviewsForm offerId={id}/>}
     </section>
   );
 }

@@ -30,7 +30,7 @@ export const offersLoadData = createSlice({
         const hosts: User[] = action.payload.map((raw) => raw.host);
         const hostIds = new Set(hosts.map((user) => user.id));
         state.hosts = Array.from(hostIds, (id) => hosts.find((host) => host.id === id)) as User[];
-        state.isOffersLoaded = false;
+        state.isOffersLoaded = true;
       });
     // .addCase(loginAction.rejected, (state) => {
     //   state.authorizationStatus = AuthorizationStatus.NoAuth;

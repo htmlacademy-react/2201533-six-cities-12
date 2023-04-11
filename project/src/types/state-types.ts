@@ -44,5 +44,5 @@ export type CityPayLoad = {
 export type SortPayLoad = {
   variant: SortingVariants;
   offers: PlaceData[];
-  hosts: User[];
+//  hosts: User[];
 }

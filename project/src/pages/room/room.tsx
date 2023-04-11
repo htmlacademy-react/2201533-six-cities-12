@@ -6,17 +6,19 @@ import RoomGallery from '../../components/room/room-gallery/room-gallery';
 import RoomContainer from '../../components/room/room-cotainer/room-container';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesMap from '../../components/map/placesMap';
-import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Loading from '../loading/loading';
 import {fetchOffer} from '../../store/api-actions';
 import {useEffect, useRef} from 'react';
+import {getIsOfferLoading, getNearOffers, getSelectedOffer} from '../../store/offer/offer-selectors';
 
 export default function Room(): JSX.Element{
   const id: number = parseInt(useParams().id as string, 10);
   const isFetched = useRef<boolean>(false);
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.isOfferLoading);
+  const isLoading = useAppSelector(getIsOfferLoading);
+  const offer = useAppSelector(getSelectedOffer);
+  const near = useAppSelector(getNearOffers);
   useEffect(() => {
     if (!isFetched.current){
       dispatch(fetchOffer(id));
@@ -26,8 +28,6 @@ export default function Room(): JSX.Element{
   if (isLoading){
     return <Loading/>;
   }
-  const offer = store.getState().selectedOffer;
-  const near = store.getState().nearOffers;
   if (!offer) {
     return <NotFound />;
   }

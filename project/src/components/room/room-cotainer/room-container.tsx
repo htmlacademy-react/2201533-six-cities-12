@@ -6,10 +6,11 @@ import RoomInsides from '../room-insides/room-insides';
 import RoomHost from '../room-host/room-host';
 import Reviews from '../reviews/reviews';
 import {PlaceData} from '../../../types/place-data-types';
-import {store} from '../../../store';
+import {useAppSelector} from '../../../hooks';
+import {getHosts} from '../../../store/offers/offers-selectors';
 
 export default function RoomContainer(offer: PlaceData): JSX.Element {
-  const hosts = store.getState().hosts;
+  const hosts = useAppSelector(getHosts);
   const host = hosts.find((element) => element.id === offer.hostId) || hosts[0];
   return (
     <div className="property__container container">
@@ -32,7 +33,7 @@ export default function RoomContainer(offer: PlaceData): JSX.Element {
         </div>
         <RoomInsides insides={offer.goods}/>
         <RoomHost host={host}/>
-        <Reviews />
+        <Reviews id={offer.id}/>
       </div>
     </div>
   );

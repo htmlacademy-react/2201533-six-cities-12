@@ -1,23 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {
-//   loadComments,
-//   loadNear,
-//   loadOffer,
-//   loadOffers,
-//   setAuthorizationStatus,
-//   setLoadedOffers,
-//   setLoadingOffer,
-  redirectToRoute,
-//   setEmail
-} from './actions';
-import {APIRoute, AuthorizationStatus, AppRoute} from '../settings';
+import {redirectToRoute} from './actions';
+import {APIRoute, AppRoute} from '../settings';
 import {AppDispatch, RootState} from './index';
 import {RawPlace, RawPlaceData, Comment} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
-import {AxiosInstance, AxiosResponse} from 'axios';
+import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
 import {saveToken} from '../servises/token';
-import {CommentType, PostCommentType} from '../types/comment-type';
+import {PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
 
 

@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
 import {SORTING_VARIANTS} from '../../../consts/sort-consts';
-import {useSelector} from 'react-redux';
-import {RootState, store} from '../../../store';
-import {selectSortingVariant} from '../../../store/actions';
+import {store} from '../../../store';
+import {selectSortingVariant} from '../../../store/city-process/city-process';
+import {getSortingVariant} from '../../../store/city-process/city-process-selectors';
+import {useAppSelector} from '../../../hooks';
+import {getOffers} from '../../../store/offers/offers-selectors';
 
 export default function SortingForm(): JSX.Element {
   const [isVisible, setVisible] = useState(false);
-  const variant = useSelector((state: RootState) => state.sortingVariant);
+  const variant = useAppSelector(getSortingVariant);
+  const offers = useAppSelector(getOffers);
   const onClickArrow = (): void => {
     setVisible(!isVisible);
   };
   const onClickUl = (evt: React.MouseEvent<HTMLLIElement>): void => {
     const index: number = parseInt(evt.currentTarget.dataset.index as string, 10);
     if( index !== variant){
-      store.dispatch(selectSortingVariant(index));
+      store.dispatch(selectSortingVariant({variant: index, offers}));
       setVisible(false);
     }
   };

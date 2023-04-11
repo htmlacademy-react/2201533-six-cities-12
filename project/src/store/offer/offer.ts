@@ -1,5 +1,5 @@
-import {Comment, PlaceData, RawPlace, RawPlaceData, RoomData} from '../../types/place-data-types';
-import {OfferData, OfferStore} from '../../types/state-types';
+import {Comment, PlaceData, RawPlace, RawPlaceData} from '../../types/place-data-types';
+import {OfferStore} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings';
 import {adaptPlace, loaders} from '../adapter';
@@ -15,20 +15,7 @@ const initialState: OfferStore = {
 export const offerData = createSlice({
   name: NameSpace.Offer,
   initialState,
-  reducers: {
-    // loadOffer: (state, action: PayloadAction<RawPlace>) => {
-    //   state.selectedOffer = adaptPlace(action.payload) ?? null;
-    // },
-    // loadNear: (state, action: PayloadAction<RawPlace[]>) => {
-    //   state.nearOffers = action.payload.map((raw) => adaptPlace(raw));
-    // },
-    // loadComments: (state, action: PayloadAction<Comment[]>) => {
-    //   state.comments = action.payload;
-    // },
-    // setLoadingOffer: (state, action: PayloadAction<boolean>) => {
-    //   state.isOfferLoading = action.payload;
-    // }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffer.pending, (state: OfferStore) => {

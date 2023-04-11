@@ -3,7 +3,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {useAppDispatch} from '../../../hooks';
 import {postComment} from '../../../store/api-actions';
 
-export default function ReviewsForm(): JSX.Element {
+export default function ReviewsForm({offerId}: {offerId: number}): JSX.Element {
   const [rating, setRating] = useState(0);
   const [disabledSubmit, setDisabledSubmit] = useState(true);
   const [review, setReview] = useState('');
@@ -22,7 +22,7 @@ export default function ReviewsForm(): JSX.Element {
 
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
-    dispatch(postComment({comment: review, rating: rating}));
+    dispatch(postComment({comment: {review, rating},id: offerId}));
   };
 
   useEffect(() => {
@@ -31,7 +31,6 @@ export default function ReviewsForm(): JSX.Element {
 
   return (
     <form className="reviews__form form" action="src/components/room/reviews-form/reviews-form#" method="post" onSubmit={onSubmit}>
-      {/*<p className='visually-hidden'>{review}</p>*/}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {STAR_TITLES.map((element, index) => {

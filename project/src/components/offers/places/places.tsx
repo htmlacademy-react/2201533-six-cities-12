@@ -2,12 +2,12 @@ import SortingForm from '../sorting-form/sorting-form';
 import PlaceCard from '../../place-card/place-card';
 import PlacesMap from '../../map/placesMap';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../store';
+import {getCity, getCitiesOffers, getOffersCount} from '../../../store/city-process/city-process-selectors';
 
 export default function Places(): JSX.Element {
-  const count = useSelector((state: RootState) => state.offersCount);
-  const offers = useSelector((state: RootState) => state.citiesOffers);
-  const city = useSelector((state: RootState) => state.city);
+  const count = useSelector(getOffersCount);
+  const offers = useSelector(getCitiesOffers);
+  const city = useSelector(getCity);
   if (count > 0) {
     const title = `${count} places to stay in ${city.name}`;
     return (

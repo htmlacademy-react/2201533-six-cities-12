@@ -1,5 +1,5 @@
 export type CommentType = {
-  comment: string;
+  review: string;
   rating: number;
 }
 

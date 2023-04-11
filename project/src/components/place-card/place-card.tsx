@@ -6,7 +6,8 @@ import RatingStars from '../rating-stars/rating-stars';
 import PremiumMark from '../premium-mark/premium-mark';
 import FavoriteButton from '../favorite-button/favorite-button';
 import {store} from '../../store';
-import {activateCard} from '../../store/actions';
+import {activateCard} from '../../store/city-process/city-process';
+//import {activateCard} from '../../store/actions';
 import {FavoritesCardStyles, NO_ACTIVE_CARD, OffersCardStyles, RoomCardStyles} from '../../consts/place-card-consts';
 import {PlaceData} from '../../types/place-data-types';
 
