@@ -1,4 +1,4 @@
-import {Loader, PlaceData, RawPlace, RoomData} from '../types/place-data-types';
+import {Loader, PlaceData, RawPlace} from '../types/place-data-types';
 import {APIRoute, TypeOffer} from '../settings';
 import {CITIES} from './cities';
 
@@ -19,8 +19,6 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     rating: raw.rating,
     title: raw.title
   });
-
-//const adaptComments = (comments: Comment[]): Comment[] => comments;
 
 export const loaders: Loader[] = [
   {
