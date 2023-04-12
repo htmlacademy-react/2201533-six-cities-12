@@ -1,6 +1,9 @@
 import React from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postFavorite} from '../../store/api-actions';
+import {getIsAuth} from '../../store/user-process/user-selectors';
+import {useNavigate} from 'react-router-dom';
+import {AppRoute} from '../../settings';
 type FavoriteButtonProps = {
   id: number;
   isFavorite: boolean;
@@ -11,11 +14,15 @@ type FavoriteButtonProps = {
 }
 
 export default function FavoriteButton({id, isFavorite, caption, width, height, place}: FavoriteButtonProps): JSX.Element {
+  const isAuth = useAppSelector(getIsAuth);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   //const [isCheck, setFavorite] = useState(isFavorite);
   const onFavorite = (evt: React.MouseEvent) => {
-    evt.preventDefault();
-    dispatch(postFavorite({hotelId: id, status: !isFavorite}));
+    if (isAuth){
+      dispatch(postFavorite({hotelId: id, status: !isFavorite}));
+    }
+    navigate(AppRoute.Login);
     //setFavorite(!isCheck);
   };
   return (
