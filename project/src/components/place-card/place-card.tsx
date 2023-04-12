@@ -41,7 +41,8 @@ export default function PlaceCard(place: PlaceData): JSX.Element{
             <b className="place-card__price-value">{`€${price} `}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} caption={styles.BookmarkCaption} width={'18'} height={'19'} place={'place-card'}/>
+          {/*<FavoriteButton isFavorite={isFavorite} caption={styles.BookmarkCaption} width={'18'} height={'19'} place={'place-card'}/>*/}
+          <FavoriteButton {...{id, isFavorite, caption: styles.BookmarkCaption, width: '18', height: '19', place: 'place-card'}}/>
         </div>
         <div className="place-card__rating rating">
           <RatingStars rating={rating} className={'place-card__stars rating__stars'}/>

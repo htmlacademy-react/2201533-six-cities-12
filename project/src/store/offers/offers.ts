@@ -4,7 +4,7 @@ import {NameSpace} from '../../settings';
 import {adaptPlace} from '../adapter';
 import {User} from '../../types/types';
 import {OffersData} from '../../types/state-types';
-import {fetchOffers} from '../api-actions';
+import {fetchOffers, postFavorite} from '../api-actions';
 
 const initialState: OffersData = {
   offers : [],
@@ -31,6 +31,12 @@ export const offersLoadData = createSlice({
         const hostIds = new Set(hosts.map((user) => user.id));
         state.hosts = Array.from(hostIds, (id) => hosts.find((host) => host.id === id)) as User[];
         state.isOffersLoaded = true;
+      })
+      .addCase(postFavorite.fulfilled, (state: OffersData, action: PayloadAction<RawPlace>) => {
+        const offer = state.offers.find((place) => action.payload.id === place.id);
+        if (offer) {
+          offer.isFavorite = action.payload.isFavorite;
+        }
       });
     // .addCase(loginAction.rejected, (state) => {
     //   state.authorizationStatus = AuthorizationStatus.NoAuth;

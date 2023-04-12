@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {redirectToRoute} from './actions';
 import {APIRoute, AppRoute} from '../settings';
 import {AppDispatch, RootState} from './index';
-import {RawPlace, RawPlaceData, Comment} from '../types/place-data-types';
+import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
 import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
@@ -72,6 +72,19 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await axiosApi.delete(APIRoute.Logout);
     dropToken();
     dispatch(redirectToRoute(AppRoute.Root));
+  }
+);
+
+export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  TypeAction.postFavorite,
+  async ({hotelId, status}, {extra: axiosApi}) => {
+    const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
+    const {data} = await axiosApi.post<RawPlace>(url);
+    return data;
   }
 );
 

@@ -54,9 +54,12 @@ export type PlaceData = {
   title: string;
 };
 
-export type RoomData = PlaceData | PlaceData[] | Comment[];
-
 export type Loader = {
   field: keyof OfferData;
   url: (id: number) => string;
+}
+
+export type PostFavorite = {
+  hotelId: number;
+  status: boolean;
 }

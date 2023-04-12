@@ -6,5 +6,6 @@ export const TypeAction = {
   redirect: 'redirect',
   redirectToRoute: 'redirectToRoute',
   postComment: 'postComment',
-  logout: 'logout'
+  logout: 'logout',
+  postFavorite: 'postFavorite'
 } as const;

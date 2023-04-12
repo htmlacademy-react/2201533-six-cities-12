@@ -20,7 +20,10 @@ export default function RoomContainer(offer: PlaceData): JSX.Element {
           <h1 className="property__name">
             {offer.title}
           </h1>
-          <FavoriteButton isFavorite={offer.isFavorite} caption={'To bookmarks'} width={'31'} height={'33'} place={'property'}/>
+          <FavoriteButton
+            id={offer.id} isFavorite={offer.isFavorite}
+            caption={'To bookmarks'} width={'31'} height={'33'} place={'property'}
+          />
         </div>
         <div className="property__rating rating">
           <RatingStars rating={offer.rating} className={'property__stars rating__stars'}/>
