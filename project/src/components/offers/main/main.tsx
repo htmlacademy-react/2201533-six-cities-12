@@ -5,7 +5,6 @@ import {useAppSelector} from '../../../hooks';
 
 export default function Main(): JSX.Element {
   const placesCount = useAppSelector(getOffersCount);
-  console.log('main');
   return (
     <main className={`page__main page__main--index${placesCount ? '' : 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
