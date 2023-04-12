@@ -16,6 +16,7 @@ export const APIRoute = {
   Offers: '/hotels',
   Comments: '/comments',
   Login: '/login',
+  Logout: '/logout'
 } as const;
 
 export enum AuthorizationStatus {
@@ -88,3 +89,5 @@ export enum NameSpace {
   Offers = 'OFFERS',
   Offer = 'OFFER',
 }
+
+export const DEFAULT_EMAIL = '';

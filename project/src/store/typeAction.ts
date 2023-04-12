@@ -1,13 +1,4 @@
 export const TypeAction = {
-  changeCity: 'changeCity',
-  selectSortingVariant: 'selectSortingVariant',
-  activateCard: 'activateCard',
-  loadOffers: 'loadOffers',
-  loadOffer: 'loadOffer',
-  loadNear: 'loadNear',
-  loadComments: 'loadComments',
-  addUser: 'addUser',
-  setIsOffersLoaded: 'setIsOffersLoaded',
   fetchOffers: 'fetchOffers',
   fetchOffer: 'fetchOffer',
   checkAuth: 'checkAuth',
@@ -15,7 +6,5 @@ export const TypeAction = {
   redirect: 'redirect',
   redirectToRoute: 'redirectToRoute',
   postComment: 'postComment',
-  setOfferLoading: 'setOfferLoading',
-  setAuthorizationStatus: 'setAuthorizationStatus',
-  setEmail: 'setEmail'
+  logout: 'logout'
 } as const;

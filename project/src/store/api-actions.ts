@@ -6,10 +6,9 @@ import {RawPlace, RawPlaceData, Comment} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
 import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
-import {saveToken} from '../servises/token';
+import {dropToken, saveToken} from '../servises/token';
 import {PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
-
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;
@@ -36,13 +35,16 @@ export const fetchOffer = createAsyncThunk<RawPlaceData[], number, {
   }
 );
 
-export const checkAuth = createAsyncThunk<void, undefined, {
+export const checkAuth = createAsyncThunk<UserType, undefined, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.checkAuth,
-  async(_,{extra: axiosApi}) => await axiosApi.get(APIRoute.Login)
+  async(_,{extra: axiosApi}) => {
+    const {data} = await axiosApi.get<UserType>(APIRoute.Login);
+    return data;
+  }
 );
 
 export const loginAction = createAsyncThunk<UserType, AuthType, {
@@ -54,9 +56,23 @@ export const loginAction = createAsyncThunk<UserType, AuthType, {
   async ({email, password}, {dispatch, extra: axiosApi}) => {
     const {data} = await axiosApi.post<UserType>(APIRoute.Login, {email, password});
     saveToken(data.token);
+    console.log('redirect');
     dispatch(redirectToRoute(AppRoute.Root));
     return data;
-  },
+  }
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  TypeAction.logout,
+  async (_, {dispatch, extra: axiosApi}) => {
+    await axiosApi.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(redirectToRoute(AppRoute.Root));
+  }
 );
 
 export const postComment = createAsyncThunk<Comment[], PostCommentType, {

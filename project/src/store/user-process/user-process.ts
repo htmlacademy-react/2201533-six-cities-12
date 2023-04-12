@@ -1,12 +1,12 @@
 import {UserProcess} from '../../types/state-types';
-import {AuthorizationStatus, NameSpace} from '../../settings';
+import {AuthorizationStatus, DEFAULT_EMAIL, NameSpace} from '../../settings';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {checkAuth, loginAction} from '../api-actions';
+import {checkAuth, loginAction, logoutAction} from '../api-actions';
 import {UserType} from '../../types/user-types';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userEmail: ''
+  userEmail: DEFAULT_EMAIL
 };
 
 export const userProcess = createSlice({
@@ -19,7 +19,8 @@ export const userProcess = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(checkAuth.fulfilled, (state) => {
+      .addCase(checkAuth.fulfilled, (state, action: PayloadAction<UserType>) => {
+        state.userEmail = action.payload.email;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(checkAuth.rejected, (state) => {
@@ -31,9 +32,10 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(logoutAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.userEmail = DEFAULT_EMAIL;
       });
-    // .addCase(logoutAction.fulfilled, (state, action) => {
-    //   state.authorizationStatus = AuthorizationStatus.NoAuth;
-    // });
   }
 });

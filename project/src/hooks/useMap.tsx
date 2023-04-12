@@ -2,7 +2,9 @@ import {MutableRefObject, useState, useEffect, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';
 import {MapLocation} from '../types/types';
 
-export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: MapLocation): Map | null {
+export type LeafletMap = Map | null;
+
+export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, location: MapLocation): LeafletMap {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
   useEffect(() => {

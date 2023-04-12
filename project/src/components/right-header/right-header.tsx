@@ -1,11 +1,18 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../settings';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getIsAuth, getUserEmail} from '../../store/user-process/user-selectors';
+import React from 'react';
+import {logoutAction} from '../../store/api-actions';
 
 export default function RightHeader(): JSX.Element {
   const isAuth = useAppSelector(getIsAuth);
   const email = useAppSelector(getUserEmail);
+  const dispatch = useAppDispatch();
+  const onLogout = (evt: React.MouseEvent) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  };
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
@@ -25,9 +32,9 @@ export default function RightHeader(): JSX.Element {
         </li>
         {isAuth ?
           <li className="header__nav-item">
-            <a className="header__nav-link" href="#">
+            <Link className="header__nav-link" to='/' onClick={onLogout}>
               <span className="header__signout">Sign out</span>
-            </a>
+            </Link>
           </li> : ''}
       </ul>
     </nav>
