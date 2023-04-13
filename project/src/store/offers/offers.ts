@@ -35,7 +35,9 @@ export const offersLoadData = createSlice({
       .addCase(postFavorite.fulfilled, (state: OffersData, action: PayloadAction<RawPlace>) => {
         const offer = state.offers.find((place) => action.payload.id === place.id);
         if (offer) {
+          console.log('pre change')
           offer.isFavorite = action.payload.isFavorite;
+          console.log('post change')
         }
       });
     // .addCase(loginAction.rejected, (state) => {

@@ -9,6 +9,7 @@ import {AuthType, UserType} from '../types/user-types';
 import {dropToken, saveToken} from '../servises/token';
 import {PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
+import {changeFavorite} from './offer/offer';
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;
@@ -56,7 +57,6 @@ export const loginAction = createAsyncThunk<UserType, AuthType, {
   async ({email, password}, {dispatch, extra: axiosApi}) => {
     const {data} = await axiosApi.post<UserType>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    console.log('redirect');
     dispatch(redirectToRoute(AppRoute.Root));
     return data;
   }
@@ -81,9 +81,10 @@ export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
   extra: AxiosInstance;
 }>(
   TypeAction.postFavorite,
-  async ({hotelId, status}, {extra: axiosApi}) => {
+  async ({hotelId, status}, {dispatch, extra: axiosApi}) => {
     const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
     const {data} = await axiosApi.post<RawPlace>(url);
+    dispatch(changeFavorite(data));
     return data;
   }
 );

@@ -4,6 +4,8 @@ import {postFavorite} from '../../store/api-actions';
 import {getIsAuth} from '../../store/user-process/user-selectors';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../settings';
+import {activateCard} from '../../store/city-process/city-process';
+import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
 type FavoriteButtonProps = {
   id: number;
   isFavorite: boolean;
@@ -19,11 +21,12 @@ export default function FavoriteButton({id, isFavorite, caption, width, height, 
   const navigate = useNavigate();
   //const [isCheck, setFavorite] = useState(isFavorite);
   const onFavorite = (evt: React.MouseEvent) => {
+    console.log('click');
     if (isAuth){
       dispatch(postFavorite({hotelId: id, status: !isFavorite}));
+    } else {
+      navigate(AppRoute.Login);
     }
-    navigate(AppRoute.Login);
-    //setFavorite(!isCheck);
   };
   return (
     <button

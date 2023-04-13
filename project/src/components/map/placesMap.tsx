@@ -22,21 +22,25 @@ export type Markers = Map<number, Marker> | null
 
 export default function PlacesMap({className, center, points, currentPoint}: MapProps): JSX.Element {
   const activeCard = useRef(NO_ACTIVE_CARD);
+  console.log(`start ${activeCard.current}`);
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
   const markers = useRef<Markers>(null);
-  useAppSelector((state: RootState) => {
-    if (!markers.current || activeCard.current === state[NameSpace.City].activeCard){
-      return;
-    }
-    const marker = state[NameSpace.City].activeCard === NO_ACTIVE_CARD ?
-      markers.current.get(activeCard.current) as Marker : markers.current.get(state[NameSpace.City].activeCard) as Marker;
+  activeCard.current = useAppSelector((state: RootState) => {
+    console.log(`activeCard ${activeCard.current}`);
+    console.log(`state.activeCard ${state[NameSpace.City].activeCard}`);
+    if (markers.current && activeCard.current !== state[NameSpace.City].activeCard) {
+      const marker = state[NameSpace.City].activeCard === NO_ACTIVE_CARD ?
+        markers.current.get(activeCard.current) as Marker : markers.current.get(state[NameSpace.City].activeCard) as Marker;
 
-    const icon = state[NameSpace.City].activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
-    marker.setIcon(icon);
-    activeCard.current = state[NameSpace.City].activeCard;
+      const icon = state[NameSpace.City].activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
+      marker.setIcon(icon);
+      // activeCard.current = state[NameSpace.City].activeCard;
+    }
+    return state[NameSpace.City].activeCard;
   });
   useEffect(() => {
+    console.log('use effect');
     if (map){
       map.setView({
         lat: center.latitude,
