@@ -3,13 +3,14 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings';
 import {adaptPlace} from '../adapter';
 import {User} from '../../types/types';
-import {OffersData} from '../../types/state-types';
+import {IsFavorite, OffersData} from '../../types/state-types';
 import {fetchOffers, postFavorite} from '../api-actions';
 
 const initialState: OffersData = {
   offers : [],
   isOffersLoaded: false,
   hosts: [],
+  isFavorites: []
 };
 
 export const offersLoadData = createSlice({
@@ -30,14 +31,13 @@ export const offersLoadData = createSlice({
         const hosts: User[] = action.payload.map((raw) => raw.host);
         const hostIds = new Set(hosts.map((user) => user.id));
         state.hosts = Array.from(hostIds, (id) => hosts.find((host) => host.id === id)) as User[];
+        state.isFavorites = action.payload.map((raw): IsFavorite => ({id: raw.id, isFavorite: raw.isFavorite}));
         state.isOffersLoaded = true;
       })
       .addCase(postFavorite.fulfilled, (state: OffersData, action: PayloadAction<RawPlace>) => {
-        const offer = state.offers.find((place) => action.payload.id === place.id);
-        if (offer) {
-          console.log('pre change')
-          offer.isFavorite = action.payload.isFavorite;
-          console.log('post change')
+        const offerIsFavorite = state.isFavorites.find((element) => action.payload.id === element.id);
+        if (offerIsFavorite) {
+          offerIsFavorite.isFavorite = action.payload.isFavorite;
         }
       });
     // .addCase(loginAction.rejected, (state) => {

@@ -15,13 +15,7 @@ const initialState: OfferStore = {
 export const offerData = createSlice({
   name: NameSpace.Offer,
   initialState,
-  reducers: {
-    changeFavorite: (state, action: PayloadAction<RawPlace>) => {
-      if (state.selectedOffer && state.selectedOffer.id === action.payload.id) {
-        state.selectedOffer.isFavorite = action.payload.isFavorite;
-      }
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchOffer.pending, (state: OfferStore) => {
@@ -48,5 +42,3 @@ export const offerData = createSlice({
       });
   }
 });
-
-export const {changeFavorite} = offerData.actions;

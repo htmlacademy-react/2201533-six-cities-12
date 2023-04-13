@@ -4,22 +4,22 @@ import {postFavorite} from '../../store/api-actions';
 import {getIsAuth} from '../../store/user-process/user-selectors';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../settings';
-import {activateCard} from '../../store/city-process/city-process';
-import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
+import {getIsFavorite} from '../../store/offers/offers-selectors';
 type FavoriteButtonProps = {
   id: number;
-  isFavorite: boolean;
   caption: string;
   width: string;
   height: string;
   place: string;
 }
 
-export default function FavoriteButton({id, isFavorite, caption, width, height, place}: FavoriteButtonProps): JSX.Element {
+export default function FavoriteButton({id, caption, width, height, place}: FavoriteButtonProps): JSX.Element {
   const isAuth = useAppSelector(getIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  //const [isCheck, setFavorite] = useState(isFavorite);
+  const isFavoriteRecord =
+    useAppSelector(getIsFavorite).find((element) => element.id === id);
+  const isFavorite = isFavoriteRecord ? isFavoriteRecord.isFavorite : false;
   const onFavorite = (evt: React.MouseEvent) => {
     console.log('click');
     if (isAuth){

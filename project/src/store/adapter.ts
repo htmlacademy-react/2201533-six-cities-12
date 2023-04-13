@@ -11,7 +11,6 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     hostId: raw.host.id,
     id: raw.id,
     images: raw.images,
-    isFavorite: raw.isFavorite,
     isPremium: raw.isPremium,
     location: raw.location,
     previewImage: raw.previewImage,

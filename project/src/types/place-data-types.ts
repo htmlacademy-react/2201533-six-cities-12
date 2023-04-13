@@ -45,7 +45,7 @@ export type PlaceData = {
   hostId: number;
   id: number;
   images: string[];
-  isFavorite: boolean;
+//  isFavorite: boolean;
   isPremium: boolean;
   location: MapLocation;
   previewImage: string;

@@ -30,10 +30,16 @@ export interface OfferFlag {
 
 export type OfferStore = OfferData & OfferFlag;
 
+export type IsFavorite = {
+  id: number;
+  isFavorite: boolean;
+}
+
 export type OffersData = {
   offers : PlaceData[];
   isOffersLoaded: boolean;
   hosts: User[];
+  isFavorites: IsFavorite[];
 };
 
 export type CityPayLoad = {

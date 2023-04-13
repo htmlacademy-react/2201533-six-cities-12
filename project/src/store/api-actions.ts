@@ -9,7 +9,6 @@ import {AuthType, UserType} from '../types/user-types';
 import {dropToken, saveToken} from '../servises/token';
 import {PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
-import {changeFavorite} from './offer/offer';
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;
@@ -84,7 +83,7 @@ export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
   async ({hotelId, status}, {dispatch, extra: axiosApi}) => {
     const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
     const {data} = await axiosApi.post<RawPlace>(url);
-    dispatch(changeFavorite(data));
+    // dispatch(changeFavorite(data));
     return data;
   }
 );
