@@ -22,7 +22,7 @@ export default function ReviewsForm({offerId}: {offerId: number}): JSX.Element {
 
   const onSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
-    dispatch(postComment({comment: {review, rating},id: offerId}));
+    dispatch(postComment({review: {comment: review, rating},id: offerId}));
   };
 
   useEffect(() => {

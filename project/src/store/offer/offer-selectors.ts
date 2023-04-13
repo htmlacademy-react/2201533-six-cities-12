@@ -7,3 +7,4 @@ export const getIsOfferLoading = (state: RootState): boolean => state[NameSpace.
 export const getSelectedOffer = (state: RootState): PlaceData => state[NameSpace.Offer].selectedOffer;
 export const getNearOffers = (state: RootState): PlaceData[] => state[NameSpace.Offer].nearOffers;
 export const getComments = (state: RootState): Comment[] => state[NameSpace.Offer].comments;
+export const getCommentsCount = (state: RootState): number => state[NameSpace.Offer].comments.length;

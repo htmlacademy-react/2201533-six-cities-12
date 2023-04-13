@@ -65,6 +65,7 @@ export const NEAR_OFFERS = [6, 7, 8];
 
 export const AUTH = AuthorizationStatus.Auth;
 export const MAX_IMAGES = 6;
+export const MAX_COMMENTS = 10;
 
 const ICON_HEIGHT = 40;
 const ICON_WIDTH = 30;

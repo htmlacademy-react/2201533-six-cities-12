@@ -1,10 +1,10 @@
 export type CommentType = {
-  review: string;
+  comment: string;
   rating: number;
 }
 
 export type PostCommentType = {
-  comment: CommentType;
+  review: CommentType;
   id: number;
 }
 

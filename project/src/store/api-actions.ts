@@ -94,10 +94,10 @@ export const postComment = createAsyncThunk<Comment[], PostCommentType, {
   extra: AxiosInstance;
 }>(
   TypeAction.postComment,
-  async ({comment, id},
+  async ({review, id},
     {extra: axiosApi}) => {
     const url = `${APIRoute.Comments}/${id}`;
-    const {data} = await axiosApi.post<Comment[]>(url, comment);
+    const {data} = await axiosApi.post<Comment[]>(url, review);
     return data;
   },
 );

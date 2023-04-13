@@ -21,7 +21,6 @@ export default function FavoriteButton({id, caption, width, height, place}: Favo
     useAppSelector(getIsFavorite).find((element) => element.id === id);
   const isFavorite = isFavoriteRecord ? isFavoriteRecord.isFavorite : false;
   const onFavorite = (evt: React.MouseEvent) => {
-    console.log('click');
     if (isAuth){
       dispatch(postFavorite({hotelId: id, status: !isFavorite}));
     } else {
