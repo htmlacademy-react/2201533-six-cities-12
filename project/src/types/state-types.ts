@@ -8,6 +8,11 @@ export type UserProcess = {
   userEmail: string;
 };
 
+export type HeaderData = {
+  isAuth: boolean;
+  email: string;
+}
+
 export type CityData = {
   cities: City[];
   cityIndex: number;
@@ -17,6 +22,12 @@ export type CityData = {
   sortingVariant: SortingVariants;
   activeCard: number;
 };
+
+export type CitiesData = {
+ count: number;
+ offers: PlaceData[];
+ city: City;
+}
 
 export interface OfferData {
   selectedOffer: PlaceData;
@@ -29,6 +40,12 @@ export interface OfferFlag {
 }
 
 export type OfferStore = OfferData & OfferFlag;
+
+export type RoomData = {
+  isLoading: boolean;
+  offer: PlaceData;
+  near: PlaceData[];
+}
 
 export type IsFavorite = {
   id: number;

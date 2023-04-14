@@ -1,13 +1,18 @@
 import SortingForm from '../sorting-form/sorting-form';
 import PlaceCard from '../../place-card/place-card';
 import PlacesMap from '../../map/placesMap';
-import {getCity, getCitiesOffers, getOffersCount} from '../../../store/city-process/city-process-selectors';
+import {
+  getCitiesOffers,
+  getCity,
+  getOffersCount
+} from '../../../store/city-process/city-process-selectors';
 import {useAppSelector} from '../../../hooks';
 
 export default function Places(): JSX.Element {
+  // const {count, city, offers} = useAppSelector(getCitiesData);
   const count = useAppSelector(getOffersCount);
-  const offers = useAppSelector(getCitiesOffers);
   const city = useAppSelector(getCity);
+  const offers = useAppSelector(getCitiesOffers);
   if (count > 0) {
     const title = `${count} places to stay in ${city.name}`;
     return (

@@ -1,13 +1,14 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../settings';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getIsAuth, getUserEmail} from '../../store/user-process/user-selectors';
+import {getEmail, getIsAuth} from '../../store/user-process/user-selectors';
 import React from 'react';
 import {logoutAction} from '../../store/api-actions';
 
 export default function RightHeader(): JSX.Element {
+  //const {isAuth, email}: HeaderData = useAppSelector(getHeaderData);
   const isAuth = useAppSelector(getIsAuth);
-  const email = useAppSelector(getUserEmail);
+  const email = useAppSelector(getEmail);
   const dispatch = useAppDispatch();
   const onLogout = (evt: React.MouseEvent) => {
     evt.preventDefault();

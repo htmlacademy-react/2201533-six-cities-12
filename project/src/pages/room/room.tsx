@@ -10,15 +10,14 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import Loading from '../loading/loading';
 import {fetchOffer} from '../../store/api-actions';
 import {useEffect, useRef} from 'react';
-import {getIsOfferLoading, getNearOffers, getSelectedOffer} from '../../store/offer/offer-selectors';
+import {getRoomData} from '../../store/offer/offer-selectors';
+import {RoomData} from '../../types/state-types';
 
 export default function Room(): JSX.Element{
   const id: number = parseInt(useParams().id as string, 10);
   const isFetched = useRef<boolean>(false);
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(getIsOfferLoading);
-  const offer = useAppSelector(getSelectedOffer);
-  const near = useAppSelector(getNearOffers);
+  const {isLoading, offer, near}: RoomData = useAppSelector(getRoomData);
   useEffect(() => {
     if (!isFetched.current){
       dispatch(fetchOffer(id));

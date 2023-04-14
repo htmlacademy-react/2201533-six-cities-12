@@ -11,3 +11,5 @@ export const RootReducer = combineReducers({
   [NameSpace.Offer]: offerData.reducer,
   [NameSpace.User]: userProcess.reducer
 });
+
+export type Reducer = ReturnType<typeof RootReducer>;
