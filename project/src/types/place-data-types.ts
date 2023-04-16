@@ -1,5 +1,6 @@
 import {City, MapLocation, User} from './types';
-import {TypeOffer} from '../setings';
+import {TypeOffer} from '../settings';
+import {OfferData} from './state-types';
 
 export type OfferFeatures = {
   type: string;
@@ -34,7 +35,7 @@ export type Comment = {
   user: User;
 }
 
-export type RawPlaceData = RawPlace | RawPlace[] | Comment[];
+export type RawPlaceData = (RawPlace | RawPlace[] | Comment[]);
 
 export type PlaceData = {
   features: OfferFeatures;
@@ -44,7 +45,7 @@ export type PlaceData = {
   hostId: number;
   id: number;
   images: string[];
-  isFavorite: boolean;
+//  isFavorite: boolean;
   isPremium: boolean;
   location: MapLocation;
   previewImage: string;
@@ -52,3 +53,13 @@ export type PlaceData = {
   rating: number;
   title: string;
 };
+
+export type Loader = {
+  field: keyof OfferData;
+  url: (id: number) => string;
+}
+
+export type PostFavorite = {
+  hotelId: number;
+  status: boolean;
+}

@@ -1,22 +1,23 @@
 import Header from '../../components/header/header';
 import {useParams} from 'react-router-dom';
 import NotFound from '../not-found/not-found';
-import {MAX_IMAGES} from '../../setings';
+import {MAX_IMAGES} from '../../settings';
 import RoomGallery from '../../components/room/room-gallery/room-gallery';
 import RoomContainer from '../../components/room/room-cotainer/room-container';
 import PlaceCard from '../../components/place-card/place-card';
 import PlacesMap from '../../components/map/placesMap';
-import {store} from '../../store';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Loading from '../loading/loading';
 import {fetchOffer} from '../../store/api-actions';
 import {useEffect, useRef} from 'react';
+import {getRoomData} from '../../store/offer/offer-selectors';
+import {RoomData} from '../../types/state-types';
 
 export default function Room(): JSX.Element{
   const id: number = parseInt(useParams().id as string, 10);
   const isFetched = useRef<boolean>(false);
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.isOfferLoading);
+  const {isLoading, offer, near}: RoomData = useAppSelector(getRoomData);
   useEffect(() => {
     if (!isFetched.current){
       dispatch(fetchOffer(id));
@@ -26,8 +27,6 @@ export default function Room(): JSX.Element{
   if (isLoading){
     return <Loading/>;
   }
-  const offer = store.getState().selectedOffer;
-  const near = store.getState().nearOffers;
   if (!offer) {
     return <NotFound />;
   }

@@ -1,41 +1,55 @@
 import {useRef, useEffect} from 'react';
 import useMap from '../../hooks/useMap';
-import {activeMapMarker, defaultMapMarker} from '../../setings';
+import {activeMapMarker, defaultMapMarker} from '../../settings';
 import {MapLocation, PlacePoint} from '../../types/types';
-import {Marker} from 'leaflet';
+import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useSelector} from 'react-redux';
-import {RootState, store} from '../../store';
+import {useAppSelector} from '../../hooks';
 import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
+import {getActiveCard} from '../../store/city-process/city-process-selectors';
 
-type MapProps = {
-  className: string;
+export interface MapAttributes {
   center: MapLocation;
   points: PlacePoint[];
   currentPoint?: PlacePoint;
 }
 
+interface MapProps extends MapAttributes {
+  className: string;
+}
+
+const setIcon = (card: number, marks: Map<number, Marker>, icon: Icon) => {
+  if (marks.has(card)){
+    const marker = marks.get(card) as Marker;
+    marker.setIcon(icon);
+  }
+};
+
+export type Markers = Map<number, Marker> | null
+
 export default function PlacesMap({className, center, points, currentPoint}: MapProps): JSX.Element {
-  let activeCard: number = store.getState().activeCard;
-  const markers = new Map<number, Marker>();
+  const activeCard = useRef(NO_ACTIVE_CARD);
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
-  useSelector((state: RootState) => {
-    if (!map || activeCard === state.activeCard){
-      return;
+  const markers = useRef<Markers>(null);
+  const activatedCard = useAppSelector(getActiveCard);
+  const changeMarkers = (card: number) => {
+    if (markers.current && activeCard.current !== card) {
+      setIcon(activeCard.current, markers.current as Map<number, Marker>, defaultMapMarker);
+      setIcon(card, markers.current as Map<number, Marker>, activeMapMarker);
+      activeCard.current = card;
     }
-    const marker = state.activeCard === NO_ACTIVE_CARD ?
-      markers.get(activeCard) as Marker : markers.get(state.activeCard) as Marker;
-    const icon = state.activeCard === NO_ACTIVE_CARD ? defaultMapMarker : activeMapMarker;
-    marker.setIcon(icon);
-    activeCard = state.activeCard;
-  });
+  };
+  changeMarkers(activatedCard);
   useEffect(() => {
     if (map){
       map.setView({
         lat: center.latitude,
         lng: center.longitude
       });
+      if (!markers.current) {
+        markers.current = new Map<number, Marker>();
+      }
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
@@ -44,7 +58,7 @@ export default function PlacesMap({className, center, points, currentPoint}: Map
         marker
           .setIcon(defaultMapMarker)
           .addTo(map);
-        markers.set(point.id, marker);
+        (markers.current as Map<number, Marker>).set(point.id, marker);
       });
       if (currentPoint){
         const currentMarker = new Marker({

@@ -1,13 +1,20 @@
 import Header from '../../components/header/header';
 import React, {useRef, useState} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
+import {getIsAuth} from '../../store/user-process/user-selectors';
+import {Navigate} from 'react-router-dom';
+import {AppRoute} from '../../settings';
 
 export default function Login(): JSX.Element{
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const isValidPass = useRef(false);
   const dispatch = useAppDispatch();
+  const isAuth = useAppSelector(getIsAuth);
+  if (isAuth){
+    return <Navigate to={AppRoute.Root}/>;
+  }
   const onSubmit = (evt: React.FormEvent)=>{
     evt.preventDefault();
     if (!isValidPass.current){

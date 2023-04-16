@@ -1,11 +1,11 @@
 import Header from '../../components/header/header';
 import FavoritesLocations from '../../components/favorites-locations/favorites-locations';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../setings';
+import {AppRoute} from '../../settings';
 import {OFFERS} from '../../mocs/offers';
 
 export default function Favorites(): JSX.Element{
-  const favorites = OFFERS.filter((element) => element.isFavorite);
+  const favorites = OFFERS;//.filter((element) => element.isFavorite);
   const count = favorites.length;
   return(
     <div className={`page${count ? '' : ' page--favorites-empty'}`}>

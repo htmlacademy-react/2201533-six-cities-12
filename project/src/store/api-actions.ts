@@ -1,80 +1,53 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {
-  loadComments,
-  loadNear,
-  loadOffer,
-  loadOffers,
-  setAuthorizationStatus,
-  setLoadedOffers,
-  setLoadingOffer,
-  redirectToRoute, setEmail
-} from './actions';
-import {APIRoute, AuthorizationStatus, AppRoute} from '../setings';
+import {redirectToRoute} from './actions';
+import {APIRoute, AppRoute} from '../settings';
 import {AppDispatch, RootState} from './index';
-import {RawPlace, RawPlaceData, Comment} from '../types/place-data-types';
+import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
-import {AxiosInstance, AxiosResponse} from 'axios';
+import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
-import {saveToken} from '../servises/token';
-import {CommentType} from '../types/comment-type';
+import {dropToken, saveToken} from '../servises/token';
+import {PostCommentType} from '../types/comment-type';
+import {loaders} from './adapter';
 
-const loaders = [
-  loadOffer,
-  loadNear,
-  loadComments
-];
-
-export const fetchOffers = createAsyncThunk<void, undefined, {
+export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.fetchOffers,
-  async (_,{dispatch, extra: axiosApi}) => {
-    dispatch(setLoadedOffers(false));
+  async (_,{extra: axiosApi}) => {
     const {data} = await axiosApi.get<RawPlace[]>(APIRoute.Offers);
-    dispatch(loadOffers(data));
-    dispatch(setLoadedOffers(true));
+    return data;
   },
 );
 
-export const fetchOffer = createAsyncThunk<void, number, {
+export const fetchOffer = createAsyncThunk<RawPlaceData[], number, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.fetchOffer,
-  async(id, {dispatch, extra: axiosApi}) => {
-    dispatch(setLoadingOffer(true));
-    const results = await Promise.all([
-      axiosApi.get<RawPlace>(`${APIRoute.Offers}/${id.toString()}`),
-      axiosApi.get<RawPlace[]>(`${APIRoute.Offers}/${id.toString()}/nearby`),
-      axiosApi.get<Comment[]>(`${APIRoute.Comments}/${id.toString()}`),
-    ]);
-    results.forEach((result: AxiosResponse<RawPlaceData>, index) => {
-      dispatch(loaders[index](result.data));
-    });
-    dispatch(setLoadingOffer(false));
+  async(id, {extra: axiosApi}) => {
+    const results = await Promise.all(
+      loaders.map((loader) => axiosApi.get<RawPlaceData>(loader.url(id))));
+    return results.map((result) => result.data);
   }
 );
 
-export const checkAuth = createAsyncThunk<void, undefined, {
+export const checkAuth = createAsyncThunk<UserType, undefined, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.checkAuth,
-  async(_,{dispatch, extra: axiosApi}) => {
-    try {
-      await axiosApi.get(APIRoute.Login);
-      dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NoAuth));
-    }
+  async(_,{extra: axiosApi}) => {
+    const {data} = await axiosApi.get<UserType>(APIRoute.Login);
+    return data;
   }
 );
 
-export const loginAction = createAsyncThunk<void, AuthType, {
+export const loginAction = createAsyncThunk<UserType, AuthType, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
@@ -83,22 +56,48 @@ export const loginAction = createAsyncThunk<void, AuthType, {
   async ({email, password}, {dispatch, extra: axiosApi}) => {
     const {data} = await axiosApi.post<UserType>(APIRoute.Login, {email, password});
     saveToken(data.token);
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Auth));
-    dispatch(setEmail(data.email));
     dispatch(redirectToRoute(AppRoute.Root));
-  },
+    return data;
+  }
 );
 
-export const postComment = createAsyncThunk<void, CommentType, {
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  TypeAction.logout,
+  async (_, {dispatch, extra: axiosApi}) => {
+    await axiosApi.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(redirectToRoute(AppRoute.Root));
+  }
+);
+
+export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  TypeAction.postFavorite,
+  async ({hotelId, status}, {dispatch, extra: axiosApi}) => {
+    const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
+    const {data} = await axiosApi.post<RawPlace>(url);
+    // dispatch(changeFavorite(data));
+    return data;
+  }
+);
+
+export const postComment = createAsyncThunk<Comment[], PostCommentType, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.postComment,
-  async ({comment, rating},
-    {dispatch, getState, extra: axiosApi}) => {
-    const url = `${APIRoute.Comments}/${getState().selectedOffer.id}`;
-    const {data} = await axiosApi.post<Comment[]>(url, {comment, rating});
-    dispatch(loadComments(data));
+  async ({review, id},
+    {extra: axiosApi}) => {
+    const url = `${APIRoute.Comments}/${id}`;
+    const {data} = await axiosApi.post<Comment[]>(url, review);
+    return data;
   },
 );

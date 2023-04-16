@@ -5,7 +5,6 @@ export enum AppRoute {
   Favorites = '/favorites',
   Login = '/login',
   Room = '/offer',
-  Comments = '/comments',
 }
 
 export const RouteParam = {
@@ -17,6 +16,8 @@ export const APIRoute = {
   Offers: '/hotels',
   Comments: '/comments',
   Login: '/login',
+  Logout: '/logout',
+  Favorite: '/favorite'
 } as const;
 
 export enum AuthorizationStatus {
@@ -64,6 +65,7 @@ export const NEAR_OFFERS = [6, 7, 8];
 
 export const AUTH = AuthorizationStatus.Auth;
 export const MAX_IMAGES = 6;
+export const MAX_COMMENTS = 10;
 
 const ICON_HEIGHT = 40;
 const ICON_WIDTH = 30;
@@ -82,3 +84,12 @@ export const activeMapMarker = new Icon({
 
 export const BASE_URL = 'https://12.react.pages.academy/six-cities';
 export const REQUEST_TIMEOUT = 5000;
+
+export enum NameSpace {
+  User = 'USER',
+  City = 'CITY',
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+}
+
+export const DEFAULT_EMAIL = '';

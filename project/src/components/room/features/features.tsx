@@ -1,4 +1,4 @@
-import {FEATURES, FeaturesPresent} from '../../../setings';
+import {FEATURES, FeaturesPresent} from '../../../settings';
 import {OfferFeatures} from '../../../types/place-data-types';
 
 export default function Features(props: OfferFeatures): JSX.Element {

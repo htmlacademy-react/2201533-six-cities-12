@@ -1,5 +1,5 @@
-import {PlaceData, RawPlace} from '../types/place-data-types';
-import {TypeOffer} from '../setings';
+import {Loader, PlaceData, RawPlace} from '../types/place-data-types';
+import {APIRoute, TypeOffer} from '../settings';
 import {CITIES} from './cities';
 
 export const adaptPlace = (raw: RawPlace): PlaceData =>(
@@ -11,7 +11,6 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     hostId: raw.host.id,
     id: raw.id,
     images: raw.images,
-    isFavorite: raw.isFavorite,
     isPremium: raw.isPremium,
     location: raw.location,
     previewImage: raw.previewImage,
@@ -19,3 +18,18 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     rating: raw.rating,
     title: raw.title
   });
+
+export const loaders: Loader[] = [
+  {
+    field: 'selectedOffer',
+    url: (id: number) => `${APIRoute.Offers}/${id.toString()}`,
+  },
+  {
+    field: 'nearOffers',
+    url: (id: number) => `${APIRoute.Offers}/${id.toString()}/nearby`,
+  },
+  {
+    field: 'comments',
+    url: (id: number) => `${APIRoute.Comments}/${id.toString()}`,
+  }
+];

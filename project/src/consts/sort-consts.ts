@@ -11,12 +11,12 @@ const SortFields = {
   rating: 'rating' as keyof PlaceData
 };
 
-export const SortingVariants = {
-  Default: 0,
-  PriceUp: 1,
-  PriceDown: 2,
-  Rated: 3
-} as const;
+export enum SortingVariants {
+  Default = 0,
+  PriceUp = 1,
+  PriceDown = 2,
+  Rated = 3
+}
 
 export const SORTING_VARIANTS: SortOptions[] = [
   {text: 'Popular', field: null, order: 0, variant: SortingVariants.Default},
