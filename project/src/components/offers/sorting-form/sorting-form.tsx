@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {SORTING_VARIANTS} from '../../../consts/sort-consts';
 import {store} from '../../../store';
-import {selectSortingVariant} from '../../../store/city-process/city-process';
-import {getSortingVariant} from '../../../store/city-process/city-process-selectors';
+import {setSortingVariant} from '../../../store/city-process/city-process';
+import {selectSortingVariant} from '../../../store/city-process/city-process-selectors';
 import {useAppSelector} from '../../../hooks';
 import {getOffers} from '../../../store/offers/offers-selectors';
 
 export default function SortingForm(): JSX.Element {
   const [isVisible, setVisible] = useState(false);
-  const variant = useAppSelector(getSortingVariant);
+  const variant = useAppSelector(selectSortingVariant);
   const offers = useAppSelector(getOffers);
   const onClickArrow = (): void => {
     setVisible(!isVisible);
@@ -16,7 +16,7 @@ export default function SortingForm(): JSX.Element {
   const onClickUl = (evt: React.MouseEvent<HTMLLIElement>): void => {
     const index: number = parseInt(evt.currentTarget.dataset.index as string, 10);
     if( index !== variant){
-      store.dispatch(selectSortingVariant({variant: index, offers}));
+      store.dispatch(setSortingVariant({variant: index, offers}));
       setVisible(false);
     }
   };

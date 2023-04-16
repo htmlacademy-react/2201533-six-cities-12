@@ -1,6 +1,7 @@
 import {Loader, PlaceData, RawPlace} from '../types/place-data-types';
 import {APIRoute, TypeOffer} from '../settings';
 import {CITIES} from './cities';
+import {User} from '../types/types';
 
 export const adaptPlace = (raw: RawPlace): PlaceData =>(
   {
@@ -18,6 +19,12 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     rating: raw.rating,
     title: raw.title
   });
+
+export const adaptHosts = (hosts: User[]) => {
+  const hostIds = new Set(hosts.map((user) => user.id));
+  return Array.from(hostIds, (id) => hosts.find((host) => host.id === id)) as User[];
+};
+
 
 export const loaders: Loader[] = [
   {

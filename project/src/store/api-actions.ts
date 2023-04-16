@@ -1,13 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {redirectToRoute} from './actions';
-import {APIRoute, AppRoute} from '../settings';
+import {APIRoute, AppRoute, NameSpace} from '../settings';
 import {AppDispatch, RootState} from './index';
 import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
 import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
 import {dropToken, saveToken} from '../servises/token';
-import {PostCommentType} from '../types/comment-type';
 import {loaders} from './adapter';
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
@@ -18,6 +17,18 @@ export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   TypeAction.fetchOffers,
   async (_,{extra: axiosApi}) => {
     const {data} = await axiosApi.get<RawPlace[]>(APIRoute.Offers);
+    return data;
+  },
+);
+
+export const fetchFavorites = createAsyncThunk<RawPlace[], undefined, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  TypeAction.fetchFavorites,
+  async (_,{extra: axiosApi}) => {
+    const {data} = await axiosApi.get<RawPlace[]>(APIRoute.Favorite);
     return data;
   },
 );
@@ -83,21 +94,24 @@ export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
   async ({hotelId, status}, {dispatch, extra: axiosApi}) => {
     const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
     const {data} = await axiosApi.post<RawPlace>(url);
-    // dispatch(changeFavorite(data));
     return data;
   }
 );
 
-export const postComment = createAsyncThunk<Comment[], PostCommentType, {
+export const postComment = createAsyncThunk<Comment[], number, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.postComment,
-  async ({review, id},
-    {extra: axiosApi}) => {
+  async (id, {getState, extra: axiosApi}) => {
+    const {comment, rating} = getState()[NameSpace.Offer];
+    // const delay = new Promise((resolve) => {
+    //   setTimeout(() => resolve(0), 5000);
+    // });
     const url = `${APIRoute.Comments}/${id}`;
-    const {data} = await axiosApi.post<Comment[]>(url, review);
+    // await delay;
+    const {data} = await axiosApi.post<Comment[]>(url, {comment, rating});
     return data;
   },
 );

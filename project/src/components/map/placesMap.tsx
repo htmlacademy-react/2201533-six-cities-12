@@ -6,7 +6,7 @@ import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
 import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
-import {getActiveCard} from '../../store/city-process/city-process-selectors';
+import {selectActiveCard} from '../../store/city-process/city-process-selectors';
 
 export interface MapAttributes {
   center: MapLocation;
@@ -32,7 +32,7 @@ export default function PlacesMap({className, center, points, currentPoint}: Map
   const mapRef = useRef(null);
   const map = useMap(mapRef, center);
   const markers = useRef<Markers>(null);
-  const activatedCard = useAppSelector(getActiveCard);
+  const activatedCard = useAppSelector(selectActiveCard);
   const changeMarkers = (card: number) => {
     if (markers.current && activeCard.current !== card) {
       setIcon(activeCard.current, markers.current as Map<number, Marker>, defaultMapMarker);

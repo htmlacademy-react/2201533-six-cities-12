@@ -1,37 +1,17 @@
 import Header from '../../components/header/header';
-import React, {useRef, useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loginAction} from '../../store/api-actions';
-import {getIsAuth} from '../../store/user-process/user-selectors';
-import {Navigate} from 'react-router-dom';
+import {useAppSelector} from '../../hooks';
+import {selectIsAuth} from '../../store/user-process/user-selectors';
+import {Navigate, Link} from 'react-router-dom';
 import {AppRoute} from '../../settings';
+import LoginForm from '../../components/login-form/login-form/login-form';
+import useRandomCity from '../../hooks/useRandomCity';
 
 export default function Login(): JSX.Element{
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const isValidPass = useRef(false);
-  const dispatch = useAppDispatch();
-  const isAuth = useAppSelector(getIsAuth);
+  const randomCity = useRandomCity();
+  const isAuth = useAppSelector(selectIsAuth);
   if (isAuth){
     return <Navigate to={AppRoute.Root}/>;
   }
-  const onSubmit = (evt: React.FormEvent)=>{
-    evt.preventDefault();
-    if (!isValidPass.current){
-      return;
-    }
-    dispatch(loginAction({email: email, password: pass}));
-  };
-  const onInputEmail = (evt: React.FormEvent<HTMLInputElement>) => {
-    setEmail(evt.currentTarget.value);
-  };
-  const onInputPass = (evt: React.FormEvent<HTMLInputElement>) => {
-    const digit = /\d/;
-    const char = /[A-Za-z]/;
-    const text = evt.currentTarget.value;
-    isValidPass.current = digit.test(text) && char.test(text);
-    setPass(evt.currentTarget.value);
-  };
   return (
     <div className="page page--gray page--login">
       <Header/>
@@ -39,27 +19,13 @@ export default function Login(): JSX.Element{
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email"
-                  value={email} required onInput={onInputEmail}
-                />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password"
-                  value={pass} required onInput={onInputPass}
-                />
-              </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
-            </form>
+            <LoginForm />
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" to={`${AppRoute.Root}${randomCity.name}`}>
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
           </section>
         </div>

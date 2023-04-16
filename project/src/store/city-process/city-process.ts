@@ -26,7 +26,7 @@ export const cityProcess = createSlice({
       state.offersCount = state.citiesOffers.length;
       state.city = state.cities[state.cityIndex];
     },
-    selectSortingVariant: (state, action:PayloadAction<SortPayLoad>) => {
+    setSortingVariant: (state, action:PayloadAction<SortPayLoad>) => {
       state.sortingVariant = action.payload.variant;
       const field = SORTING_VARIANTS[state.sortingVariant].field as keyof PlaceData;
       const order = SORTING_VARIANTS[state.sortingVariant].order;
@@ -41,4 +41,4 @@ export const cityProcess = createSlice({
   },
 });
 
-export const {changeCity, selectSortingVariant, activateCard} = cityProcess.actions;
+export const {changeCity, setSortingVariant, activateCard} = cityProcess.actions;

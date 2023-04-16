@@ -90,6 +90,12 @@ export enum NameSpace {
   City = 'CITY',
   Offers = 'OFFERS',
   Offer = 'OFFER',
+  Favorites = 'FAVORITES',
+}
+
+export enum errMsg {
+  fetchOffers = 'failed to download data from the server',
+  postComment = 'couldn\'t send a comment'
 }
 
 export const DEFAULT_EMAIL = '';

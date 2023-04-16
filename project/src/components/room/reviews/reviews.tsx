@@ -3,17 +3,12 @@ import RatingStars from '../../rating-stars/rating-stars';
 import RoomUser, {Modes} from '../room-user/room-user';
 import ReviewTime from '../review-time/review-time';
 import {useAppSelector} from '../../../hooks';
-import {getIsAuth} from '../../../store/user-process/user-selectors';
-import {getComments, getCommentsCount} from '../../../store/offer/offer-selectors';
-import {MAX_COMMENTS} from '../../../settings';
+import {selectIsAuth} from '../../../store/user-process/user-selectors';
+import {selectCommentsData} from '../../../store/offer/offer-selectors';
 
 export default function Reviews({id}: {id: number}): JSX.Element {
-  const isAuth = useAppSelector(getIsAuth);
-  const reviews = useAppSelector(getComments).slice().sort(
-    (a, b) => a.date < b.date ? 1 : -1).slice(
-    0, MAX_COMMENTS
-  );
-  const count = useAppSelector(getCommentsCount);
+  const isAuth = useAppSelector(selectIsAuth);
+  const {reviews, count} = useAppSelector(selectCommentsData);
 
   return (
     <section className="property__reviews reviews">
