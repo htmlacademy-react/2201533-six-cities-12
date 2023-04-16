@@ -1,10 +1,10 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postFavorite} from '../../store/api-actions';
-import {getIsAuth} from '../../store/user-process/user-selectors';
+import {selectIsAuth} from '../../store/user-process/user-selectors';
 import {useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../settings';
-import {getIsFavorite} from '../../store/offers/offers-selectors';
+import {selectIsFavorite} from '../../store/offers/offers-selectors';
 type FavoriteButtonProps = {
   id: number;
   caption: string;
@@ -14,12 +14,10 @@ type FavoriteButtonProps = {
 }
 
 export default function FavoriteButton({id, caption, width, height, place}: FavoriteButtonProps): JSX.Element {
-  const isAuth = useAppSelector(getIsAuth);
+  const isAuth = useAppSelector(selectIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isFavoriteRecord =
-    useAppSelector(getIsFavorite).find((element) => element.id === id);
-  const isFavorite = isFavoriteRecord ? isFavoriteRecord.isFavorite : false;
+  const isFavorite = useAppSelector((state) => selectIsFavorite(state, id));
   const onFavorite = (evt: React.MouseEvent) => {
     if (isAuth){
       dispatch(postFavorite({hotelId: id, status: !isFavorite}));

@@ -23,16 +23,21 @@ export type CityData = {
   activeCard: number;
 };
 
-export type CitiesData = {
- count: number;
- offers: PlaceData[];
- city: City;
+export enum PromiseStates {
+  undefined = 'undefined',
+  reject = 'rejected',
+  pending = 'pending',
+  fulfill = 'fulfilled',
 }
 
 export interface OfferData {
   selectedOffer: PlaceData;
   nearOffers: PlaceData[];
   comments: Comment[];
+  postCommentState: PromiseStates;
+  timer: NodeJS.Timeout;
+  rating: number;
+  comment: string;
 }
 
 export interface OfferFlag {
@@ -45,6 +50,12 @@ export type RoomData = {
   isLoading: boolean;
   offer: PlaceData;
   near: PlaceData[];
+}
+
+export type FavoritesStore = {
+  count: number;
+  isFavoritesLoading: boolean;
+  favorites: PlaceData[];
 }
 
 export type IsFavorite = {
@@ -67,5 +78,4 @@ export type CityPayLoad = {
 export type SortPayLoad = {
   variant: SortingVariants;
   offers: PlaceData[];
-//  hosts: User[];
 }

@@ -12,6 +12,9 @@ import Loading from '../../pages/loading/loading';
 import HistoryRouter from '../history-route/history-route';
 import {browserHistory} from '../../browser-history';
 import {getIsOffersLoaded} from '../../store/offers/offers-selectors';
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from 'react-toastify';
+import React from 'react';
 
 export default function App(): JSX.Element {
   const isLoaded = useAppSelector(getIsOffersLoaded);
@@ -20,6 +23,7 @@ export default function App(): JSX.Element {
   }
   return (
     <HistoryRouter history={browserHistory}>
+      <ToastContainer />
       <Routes>
         <Route path={AppRoute.Root}>
           <Route index element={<Navigate to={DEFAULT_CITY}/>}/>

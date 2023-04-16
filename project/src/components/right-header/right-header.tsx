@@ -1,14 +1,15 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../settings';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getEmail, getIsAuth} from '../../store/user-process/user-selectors';
+import {selectHeaderData} from '../../store/user-process/user-selectors';
 import React from 'react';
 import {logoutAction} from '../../store/api-actions';
+import {HeaderData} from '../../types/state-types';
+import {selectFavoritesCount} from '../../store/favorites/favorites-selectors';
 
 export default function RightHeader(): JSX.Element {
-  //const {isAuth, email}: HeaderData = useAppSelector(getHeaderData);
-  const isAuth = useAppSelector(getIsAuth);
-  const email = useAppSelector(getEmail);
+  const {isAuth, email}: HeaderData = useAppSelector(selectHeaderData);
+  const favoritesCount = useAppSelector(selectFavoritesCount);
   const dispatch = useAppDispatch();
   const onLogout = (evt: React.MouseEvent) => {
     evt.preventDefault();
@@ -23,7 +24,7 @@ export default function RightHeader(): JSX.Element {
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__user-name user__name">{email}</span>
-              <span className="header__favorite-count">3</span>
+              <span className="header__favorite-count">{favoritesCount === 0 ? '' : favoritesCount}</span>
             </Link> :
             <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
