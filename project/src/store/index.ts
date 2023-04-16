@@ -16,7 +16,7 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       },
-    }).concat(redirect, logTime, setTimerCommentForm, fillFavoriteData, changeFavorite),
+    }).concat(redirect, setTimerCommentForm, fillFavoriteData, changeFavorite),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
