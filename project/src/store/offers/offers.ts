@@ -6,12 +6,14 @@ import {User} from '../../types/types';
 import {IsFavorite, OffersData} from '../../types/state-types';
 import {fetchOffers, postFavorite} from '../api-actions';
 import {toast} from 'react-toastify';
+import {SortingVariants} from '../../consts/sort-consts';
 
 const initialState: OffersData = {
   offers : [],
   isOffersLoaded: false,
   hosts: [],
-  isFavorites: []
+  isFavorites: [],
+  sortingVariant: SortingVariants.Default,
 };
 
 export const offersLoadData = createSlice({
@@ -20,6 +22,9 @@ export const offersLoadData = createSlice({
   reducers: {
     addUser: (state, action: PayloadAction<User>) => {
       state.hosts.push(action.payload);
+    },
+    setSortingVariant: (state, action:PayloadAction<number>) => {
+      state.sortingVariant = action.payload;
     },
     updateFromFavorites: (state, action: PayloadAction<RawPlace[]>) => {
       const favorites = action.payload;
@@ -36,13 +41,12 @@ export const offersLoadData = createSlice({
         state.isOffersLoaded = false;
       })
       .addCase(fetchOffers.fulfilled, (state: OffersData, action: PayloadAction<RawPlace[]>) => {
-        state.offers = action.payload.map((raw) => adaptPlace(raw)).filter((offer) => offer.city > -1);
+        state.offers = action.payload.map((raw, index) => adaptPlace(raw, index)).filter((offer) => offer.city > -1);
         state.hosts = adaptHosts(action.payload.map((raw) => raw.host));
         state.isFavorites = action.payload.map((raw): IsFavorite => ({id: raw.id, isFavorite: raw.isFavorite}));
         state.isOffersLoaded = true;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        // console.log(errMsg.fetchOffers);
         state.isOffersLoaded = true;
         toast.error(errMsg.fetchOffers);
       })
@@ -55,4 +59,4 @@ export const offersLoadData = createSlice({
   }
 });
 
-export const {updateFromFavorites, addUser} = offersLoadData.actions;
+export const {updateFromFavorites, addUser, setSortingVariant} = offersLoadData.actions;

@@ -52,6 +52,7 @@ export type PlaceData = {
   price: number;
   rating: number;
   title: string;
+  popular: number;
 };
 
 export type Loader = {

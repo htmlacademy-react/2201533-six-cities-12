@@ -1,7 +1,7 @@
 import {useAppSelector} from './index';
 import {useEffect, useState} from 'react';
 import {selectCities} from '../store/city-process/city-process-selectors';
-import {getRandomInt} from '../utils';
+import {getRandomInt} from '../random';
 
 export default function useRandomCity() {
   const cities = useAppSelector(selectCities);
