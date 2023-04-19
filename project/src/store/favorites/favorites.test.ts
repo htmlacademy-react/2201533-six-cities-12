@@ -1,5 +1,6 @@
 import {deleteFavoriteAction, favoriteData, incrementFavoritesCount, setFavoritesCount} from './favorites';
 import {getRandomInt} from '../../random';
+import {getRandomOffers} from '../../moks';
 
 describe('Reducer: favoriteData', () => {
   it('without additional parameters should return initial state', () => {
@@ -19,10 +20,11 @@ describe('Reducer: favoriteData', () => {
       .toEqual({count: count + 1, isFavoritesLoading: false, favorites: []});
   });
   it('should delete favorites with the received id', () => {
-    const id = getRandomInt(0, 100);
-    const state = {count: 0, isFavoritesLoading: false, favorites: [
+    const favorites = getRandomOffers();
+    const count = favorites.length;
+    const id = getRandomInt(0, count - 1);
 
-    ]};
+    const state = {count: count, isFavoritesLoading: false, favorites: favorites};
     expect(favoriteData.reducer(state, deleteFavoriteAction(id)))
       .toEqual({count: 0, isFavoritesLoading: false, favorites: []});
   });
