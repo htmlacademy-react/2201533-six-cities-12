@@ -91,6 +91,7 @@ export enum NameSpace {
   Offers = 'OFFERS',
   Offer = 'OFFER',
   Favorites = 'FAVORITES',
+  Map = 'MAP'
 }
 
 export enum errMsg {

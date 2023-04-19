@@ -2,6 +2,7 @@ import {AuthorizationStatus} from '../settings';
 import {City, User} from './types';
 import {Comment, PlaceData} from './place-data-types';
 import {SortingVariants} from '../consts/sort-consts';
+import {NO_ACTIVE_CARD} from "../consts/place-card-consts";
 
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
@@ -16,8 +17,11 @@ export type HeaderData = {
 export type CityData = {
   cities: City[];
   cityIndex: number;
-  activeCard: number;
 };
+
+export type MapData = {
+  activeCard: number;
+}
 
 export enum PromiseStates {
   undefined = 'undefined',
