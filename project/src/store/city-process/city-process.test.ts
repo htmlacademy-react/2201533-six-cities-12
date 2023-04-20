@@ -1,6 +1,6 @@
 import {changeCity, cityProcess} from './city-process';
 import {CITIES, DEFAULT_CITY_INDEX} from '../cities';
-import {getRandomInt} from '../../random';
+import {getRandomInt} from '../../utils/random';
 
 describe('Reducer: cityProcess', () => {
   it('without additional parameters should return initial state', () => {

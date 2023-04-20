@@ -1,6 +1,7 @@
 import {deleteFavoriteAction, favoriteData, incrementFavoritesCount, setFavoritesCount} from './favorites';
-import {getRandomInt} from '../../random';
-import {getRandomOffers} from '../../moks';
+import {getRandomInt} from '../../utils/random';
+import {getFavoritesForDeletingEqual, getFavoritesForFetchExpect, getRandomOffers} from '../../utils/favorites-mocks';
+import {fetchFavorites} from '../api-actions';
 
 describe('Reducer: favoriteData', () => {
   it('without additional parameters should return initial state', () => {
@@ -20,12 +21,33 @@ describe('Reducer: favoriteData', () => {
       .toEqual({count: count + 1, isFavoritesLoading: false, favorites: []});
   });
   it('should delete favorites with the received id', () => {
+    const {oldFavorites, newFavorites, id, count} = getFavoritesForDeletingEqual();
+    const state = {count: count, isFavoritesLoading: false, favorites: oldFavorites};
+    expect(favoriteData.reducer(state, deleteFavoriteAction(id)))
+      .toEqual({count: count - 1, isFavoritesLoading: false, favorites: newFavorites});
+  });
+  it('should not delete favorites with an invalid ID, but the count should be reduced.', () => {
     const favorites = getRandomOffers();
     const count = favorites.length;
-    const id = getRandomInt(0, count - 1);
-
+    const id = count;
     const state = {count: count, isFavoritesLoading: false, favorites: favorites};
     expect(favoriteData.reducer(state, deleteFavoriteAction(id)))
+      .toEqual({count: count - 1, isFavoritesLoading: false, favorites: favorites});
+  });
+  it('should update favorites by load favorites', () => {
+    const state = {count: 0, isFavoritesLoading: false, favorites: []};
+    const {raw, proc} = getFavoritesForFetchExpect();
+    expect(favoriteData.reducer(state, {type: fetchFavorites.fulfilled.type, payload: raw}))
+      .toEqual({count: raw.length, isFavoritesLoading: false, favorites: proc});
+  });
+  it('should update isFavoritesLoading before uploading favorites', () => {
+    const state = {count: 0, isFavoritesLoading: false, favorites: []};
+    expect(favoriteData.reducer(state, {type: fetchFavorites.pending.type}))
+      .toEqual({count: 0, isFavoritesLoading: true, favorites: []});
+  });
+  it('should reset isFavoritesLoading if the favorites are loaded unsuccessfully', () => {
+    const state = {count: 0, isFavoritesLoading: false, favorites: []};
+    expect(favoriteData.reducer(state, {type: fetchFavorites.rejected.type}))
       .toEqual({count: 0, isFavoritesLoading: false, favorites: []});
   });
 });
