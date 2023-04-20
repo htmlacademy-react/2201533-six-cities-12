@@ -3,39 +3,13 @@ import {Max, Min, WORDS_IN_TITLE} from './mocks-const';
 import {faker} from '@faker-js/faker';
 import {CITIES} from '../store/cities';
 import {TypeOffer} from '../settings';
-import {City, MapLocation, User} from '../types/types';
-import {getInsides, getLocation} from './mocks';
+import {getInsides, getLocation, getRandomRating, getRandomHost} from './mocks';
+import {RawPlace} from '../types/place-data-types';
 
-type RawPlace = {
-  bedrooms: number;
-  maxAdults: number;
-  type: keyof typeof TypeOffer;
-  city: City;
-  description: string;
-  goods: string[];
-  host : User;
-  id: number;
-  images: string[];
-  isFavorite: boolean;
-  isPremium: boolean;
-  location: MapLocation;
-  previewImage: string;
-  price: number;
-  rating: number;
-  title: string;
-}
-
-const getRandomHost = (): User => ({
-  id: getRandomInt(1, Max.hostId),
-  isPro: true,
-  name: faker.name.firstName(),
-  avatarUrl: faker.image.avatar()
-});
-
-export const makeFakeRawPlace = (id: number):RawPlace => {
+export const makeFakeRawPlace = (id: number, indexOfCity?: number):RawPlace => {
   const images =
     Array.from(new Array(getRandomInt(1, Max.images)), (element) => faker.image.imageUrl(260, 200));
-  const cityIndex = getRandomInt(0, Max.cityIndex);
+  const cityIndex = indexOfCity ?? getRandomInt(0, Max.cityIndex);
   const city = CITIES[cityIndex];
   return {
     bedrooms: getRandomInt(1, Max.bedrooms),
@@ -52,7 +26,7 @@ export const makeFakeRawPlace = (id: number):RawPlace => {
     location: getLocation(city.location),
     previewImage: faker.image.imageUrl(260, 200),
     price: getRandomInt(Min.price * 100, Max.price * 100) / 100,
-    rating: getRandomInt(Min.rating * 10, Max.rating * 10) / 10,
+    rating: getRandomRating(),
     title: faker.lorem.sentence(WORDS_IN_TITLE),
   };
 };

@@ -4,7 +4,7 @@ import {getRandomInt} from './random';
 import {CITIES} from '../store/cities';
 import {PlaceData} from '../types/place-data-types';
 import {Max, Min, WORDS_IN_TITLE} from './mocks-const';
-import {getInsides, getLocation} from './mocks';
+import {getInsides, getLocation, getRandomRating} from './mocks';
 
 export const makeFakePlace = (id: number):PlaceData => {
   const images =
@@ -27,7 +27,7 @@ export const makeFakePlace = (id: number):PlaceData => {
     location: getLocation(city.location),
     previewImage: faker.image.imageUrl(260, 200),
     price: getRandomInt(Min.price * 100, Max.price * 100) / 100,
-    rating: getRandomInt(Min.rating * 10, Max.rating * 10) / 10,
+    rating: getRandomRating(),
     title: faker.lorem.sentence(WORDS_IN_TITLE),
     popular: id,
   };};

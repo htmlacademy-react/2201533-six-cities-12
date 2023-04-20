@@ -56,6 +56,9 @@ export const offerData = createSlice({
         });
         state.isOfferLoading = false;
       })
+      .addCase(fetchOffer.rejected, (state: OfferStore) => {
+        state.isOfferLoading = false;
+      })
       .addCase(postComment.fulfilled, (state: OfferStore, action: PayloadAction<Comment[]>) => {
         state.comments = action.payload;
         state.postCommentState = PromiseStates.fulfill;
