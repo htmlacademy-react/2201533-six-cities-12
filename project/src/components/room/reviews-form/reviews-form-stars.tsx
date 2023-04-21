@@ -1,14 +1,17 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {STAR_TITLES, STARS_COUNT} from '../../../settings';
-import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {selectReviewStars} from '../../../store/offer/offer-selectors';
-import {setRating} from '../../../store/offer/offer';
+import {useAppSelector} from '../../../hooks';
+import {selectBlockReviewForm} from '../../../store/offer/offer-selectors';
 
-export function ReviewsFormStars (): JSX.Element {
-  const dispatch = useAppDispatch();
-  const {isBlock, rating} = useAppSelector(selectReviewStars);
+export function ReviewsFormStars ({onSelectStar}: {onSelectStar: (rating: number) => void}): JSX.Element {
+  //const dispatch = useAppDispatch();
+  const [rating, setRating] = useState(0);
+  const isBlock = useAppSelector(selectBlockReviewForm);
   const onClickRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setRating(parseInt(evt.currentTarget.value, 10)));
+    const stars = parseInt(evt.currentTarget.value, 10);
+    onSelectStar(stars);
+    setRating(stars);
+    //dispatch(setRating(parseInt(evt.currentTarget.value, 10)));
   };
   return (
     <Fragment>

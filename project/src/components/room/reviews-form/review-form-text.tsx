@@ -1,10 +1,9 @@
 import {ReviewLength} from '../../../settings';
 import React, {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {setReview} from '../../../store/offer/offer';
-import {selectBlockReviewForm, selectReviewsText} from '../../../store/offer/offer-selectors';
+import {useAppSelector} from '../../../hooks';
+import {selectBlockReviewForm} from '../../../store/offer/offer-selectors';
 
-export default function ReviewFormText(): JSX.Element {
+export default function ReviewFormText({onInputText}: {onInputText: (text: string) => void}): JSX.Element {
   //const dispatch = useAppDispatch();
   //const {isBlock, text} = useAppSelector(selectReviewsText);
   const isBlock = useAppSelector(selectBlockReviewForm);
@@ -18,11 +17,11 @@ export default function ReviewFormText(): JSX.Element {
 
   //const onInputText = (evt: React.FormEvent<HTMLTextAreaElement>) => {
   //  dispatch(setReview(evt.currentTarget.value));
-  };
+  //};
   return (
     <textarea className="reviews__textarea form__textarea" id="review" name="review"
       placeholder="Tell how was your stay, what you like and what can be improved"
-      onInput={onInputText} maxLength={ReviewLength.Max}
+      onInput={onInput} maxLength={ReviewLength.Max}
       value={text}
       disabled={isBlock}
     />
