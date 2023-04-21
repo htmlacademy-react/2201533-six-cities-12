@@ -2,7 +2,7 @@ import {getRandomInt} from './random';
 import {INSIDES, Max, Min, INSIDES_SIZE} from './mocks-const';
 import {MapLocation, User} from '../types/types';
 import {faker} from '@faker-js/faker';
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 export const getRandomHost = (): User => ({
   id: getRandomInt(1, Max.hostId),

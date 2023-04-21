@@ -2,9 +2,9 @@ import {offerData, resetPostCommentState, setRating, setReview, setTimer} from '
 import {OfferStore, PromiseStates} from '../../types/state-types';
 import {PlaceData} from '../../types/place-data-types';
 import {clearTimeout} from 'timers';
-import {getRandomRating, getRandomComment} from '../../utils/mocks';
-import {fetchOffer} from '../api-actions';
-import {getFakeDayaFromFetchOffer} from '../../utils/offer-mocks';
+import {getRandomComment, getRandomRating} from '../../utils/mocks';
+import {fetchOffer, postComment} from '../api-actions';
+import {getFakeDayaFromFetchOffer, makeFakeComments} from '../../utils/offer-mocks';
 
 const defaultState: OfferStore = {
   selectedOffer: null as unknown as PlaceData,
@@ -17,7 +17,7 @@ const defaultState: OfferStore = {
   comment: ''
 };
 
-describe('Reducer: mapProcess', () => {
+describe('Reducer: offerData', () => {
   it('without additional parameters should return initial state', () => {
     expect(offerData.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
       .toEqual(defaultState);
@@ -73,5 +73,28 @@ describe('Reducer: mapProcess', () => {
     state.isOfferLoading = true;
     expect(offerData.reducer(defaultState, {type: fetchOffer.rejected.type}))
       .toEqual(defaultState);
+  });
+  it('should assign values to comments and reset the entered data', () => {
+    const state = Object.assign({}, defaultState);
+    const comments = makeFakeComments();
+    state.comment = getRandomComment();
+    state.rating = getRandomRating();
+    const result = Object.assign({}, defaultState);
+    result.comments = comments;
+    result.postCommentState = PromiseStates.fulfill;
+    expect(offerData.reducer(state, {type: postComment.fulfilled.type, payload: comments}))
+      .toEqual(result);
+  });
+  it('should set postCommentsState in "pending"', () => {
+    const result = Object.assign({}, defaultState);
+    result.postCommentState = PromiseStates.pending;
+    expect(offerData.reducer(defaultState, {type: postComment.pending}))
+      .toEqual(result);
+  });
+  it('should set postCommentsState in "reject"', () => {
+    const result = Object.assign({}, defaultState);
+    result.postCommentState = PromiseStates.reject;
+    expect(offerData.reducer(defaultState, {type: postComment.rejected}))
+      .toEqual(result);
   });
 });
