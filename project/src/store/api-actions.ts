@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {redirectToRoute} from './actions';
-import {APIRoute, AppRoute} from '../settings';
+import {APIRoute, AppRoute, NameSpace} from '../settings';
 import {AppDispatch, RootState} from './index';
 import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../types/place-data-types';
 import {TypeAction} from './typeAction';
@@ -8,7 +8,6 @@ import {AxiosInstance,} from 'axios';
 import {AuthType, UserType} from '../types/user-types';
 import {dropToken, saveToken} from '../servises/token';
 import {loaders} from './adapter';
-import {PostCommentsType} from '../types/comment-type';
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;
@@ -99,13 +98,14 @@ export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
   }
 );
 
-export const postComment = createAsyncThunk<Comment[], PostCommentsType, {
+export const postComment = createAsyncThunk<Comment[], number, {
   dispatch: AppDispatch;
   state: RootState;
   extra: AxiosInstance;
 }>(
   TypeAction.postComment,
-  async ({id, comment, rating}, {extra: axiosApi}) => {
+  async (id, {getState, extra: axiosApi}) => {
+    const {comment, rating} = getState()[NameSpace.Offer];
     // const delay = new Promise((resolve) => {
     //   setTimeout(() => resolve(0), 5000);
     // });
