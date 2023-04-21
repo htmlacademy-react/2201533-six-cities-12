@@ -1,14 +1,14 @@
 import React from 'react';
 import {useAppSelector} from '../../../hooks';
-import {selectBlockReviewForm} from '../../../store/offer/offer-selectors';
+import {selectDisabledSubmit} from '../../../store/offer/offer-selectors';
 
-export default function ReviewFormSubmit({isDisabled}: {isDisabled: boolean}): JSX.Element {
-  const isBlock = useAppSelector(selectBlockReviewForm);
+export default function ReviewFormSubmit({id}: {id: number}): JSX.Element {
+  const disabled = useAppSelector(selectDisabledSubmit);
   return (
     <button
       className="reviews__submit form__submit button"
       type="submit"
-      disabled={isDisabled || isBlock}
+      disabled={disabled}
     >Submit
     </button>
   );

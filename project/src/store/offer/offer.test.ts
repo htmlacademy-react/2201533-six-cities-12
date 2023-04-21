@@ -23,7 +23,7 @@ describe('Reducer: mapProcess', () => {
       .toEqual(defaultState);
   });
   it('should assign the received value to the timer', () => {
-    const timeoutID = setTimeout(() => {});
+    const timeoutID = setTimeout(() => 0);
     clearTimeout(timeoutID);
     const result = Object.assign({}, defaultState);
     result.timer = timeoutID;
