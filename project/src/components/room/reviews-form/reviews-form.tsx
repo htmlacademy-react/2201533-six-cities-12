@@ -3,15 +3,15 @@ import ReviewFormText from './review-form-text';
 import ReviewFormSubmit from './review-form-submit';
 import React, {useState} from 'react';
 import {postComment} from '../../../store/api-actions';
-import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {selectFailed} from '../../../store/offer/offer-selectors';
+import {useAppDispatch} from '../../../hooks';
+//import {selectFailed} from '../../../store/offer/offer-selectors';
 import {useRef} from 'react';
 import {ReviewLength} from '../../../settings';
 
 export default function ReviewsForm({offerId}: {offerId: number}): JSX.Element {
   const dispatch = useAppDispatch();
-  const {isReset} = useAppSelector(selectFailed);
-  const isFirst = useRef(true);
+  // const {isReset} = useAppSelector(selectFailed);
+  // const isFirst = useRef(true);
   const rating = useRef(0);
   const comment = useRef('');
   const [isDisabledSubmit, setIsDisabled] = useState(true);
@@ -27,9 +27,9 @@ export default function ReviewsForm({offerId}: {offerId: number}): JSX.Element {
     evt.preventDefault();
     dispatch(postComment({id: offerId, comment: comment.current, rating: rating.current}));
   };
-  if (isReset) {
-    isFirst.current = true;
-  }
+  // if (isReset) {
+  //   isFirst.current = true;
+  // }
   return (
     <form
       className="reviews__form form"
