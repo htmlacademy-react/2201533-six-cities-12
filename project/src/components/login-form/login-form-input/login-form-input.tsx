@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {InputProps} from '../login-form/login-form';
 
 export default function LoginFormInput({onFormInput, type}: InputProps): JSX.Element {
   const [input, setInput] = useState('');
