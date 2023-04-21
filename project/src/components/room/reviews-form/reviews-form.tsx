@@ -27,9 +27,6 @@ export default function ReviewsForm({offerId}: {offerId: number}): JSX.Element {
     evt.preventDefault();
     dispatch(postComment({id: offerId, comment: comment.current, rating: rating.current}));
   };
-  // if (isReset) {
-  //   isFirst.current = true;
-  // }
   if (isReset) {
     isFirst.current = true;
   }
