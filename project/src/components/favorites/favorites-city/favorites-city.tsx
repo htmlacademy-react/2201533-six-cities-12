@@ -10,7 +10,7 @@ export default function FavoritesCity({cityID}: {cityID: number}): JSX.Element {
   const favoritesSelector = makeSelectIFavoritesByCity();
   const favorites = useAppSelector((state) => favoritesSelector(state, cityID));
   return (
-    <li className="favorites__locations-items">
+    <li className="favorites__locations-items" data-testid={'favorites-city'}>
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link className="locations__item-link" to={`${AppRoute.Root}${city}`}>

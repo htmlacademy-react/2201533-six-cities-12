@@ -1,7 +1,7 @@
 import {deleteFavoriteAction, favoriteData, incrementFavoritesCount, setFavoritesCount} from './favorites';
 import {getRandomInt} from '../../utils/random';
-import {getFavoritesForDeletingEqual, getFavoritesForFetchExpect, getRandomOffers} from '../../utils/favorites-mocks';
-import {fetchFavorites} from '../api-actions';
+import {getFavoritesForDeletingEqual, makeFakeFavorites, makeFavoritesForFetchExpect} from '../../utils/favorites-mocks';
+import {fetchFavorites} from '../api-actions/api-actions';
 
 describe('Reducer: favoriteData', () => {
   it('without additional parameters should return initial state', () => {
@@ -27,7 +27,7 @@ describe('Reducer: favoriteData', () => {
       .toEqual({count: count - 1, isFavoritesLoading: false, favorites: newFavorites});
   });
   it('should not delete favorites with an invalid ID, but the count should be reduced.', () => {
-    const favorites = getRandomOffers();
+    const favorites = makeFakeFavorites();
     const count = favorites.length;
     const id = count;
     const state = {count: count, isFavoritesLoading: false, favorites: favorites};
@@ -36,7 +36,7 @@ describe('Reducer: favoriteData', () => {
   });
   it('should update favorites by load favorites', () => {
     const state = {count: 0, isFavoritesLoading: false, favorites: []};
-    const {raw, proc} = getFavoritesForFetchExpect();
+    const {raw, proc} = makeFavoritesForFetchExpect();
     expect(favoriteData.reducer(state, {type: fetchFavorites.fulfilled.type, payload: raw}))
       .toEqual({count: raw.length, isFavoritesLoading: false, favorites: proc});
   });

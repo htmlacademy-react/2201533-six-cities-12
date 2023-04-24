@@ -3,7 +3,7 @@ import {OfferStore, PromiseStates} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {errMsg, NameSpace} from '../../settings';
 import {adaptPlace, loaders} from '../adapter';
-import {fetchOffer, postComment} from '../api-actions';
+import {fetchOffer, postComment} from '../api-actions/api-actions';
 import {toast} from 'react-toastify';
 
 const initialState: OfferStore = {

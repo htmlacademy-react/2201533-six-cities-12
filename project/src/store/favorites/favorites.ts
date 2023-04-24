@@ -1,7 +1,7 @@
 import {FavoritesStore} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings';
-import {fetchFavorites} from '../api-actions';
+import {fetchFavorites} from '../api-actions/api-actions';
 import {adaptPlace} from '../adapter';
 
 const initialState: FavoritesStore = {

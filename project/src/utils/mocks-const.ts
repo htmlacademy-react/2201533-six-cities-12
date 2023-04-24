@@ -22,7 +22,8 @@ export const Max = {
   price: 10000,
   rating: 5,
   insides: INSIDES.length,
-  favorites: 25
+  favorites: 25,
+  offers: 150
 };
 
 export const Min = {

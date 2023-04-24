@@ -12,7 +12,7 @@ export default function Places(): JSX.Element {
   if (count > 0) {
     const title = `${count} places to stay in ${city.name}`;
     return (
-      <div className="cities__places-container container">
+      <div className="cities__places-container container" data-testid={'places'}>
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{title}</b>
@@ -38,7 +38,7 @@ export default function Places(): JSX.Element {
   }
   const emptyTitle = `We could not find any property available at the moment in ${city.name}`;
   return (
-    <div className="cities__places-container cities__places-container--empty container">
+    <div className="cities__places-container cities__places-container--empty container" data-testid={'places'}>
       <section className="cities__no-places">
         <div className="cities__status-wrapper tabs__content">
           <b className="cities__status">No places to stay available</b>

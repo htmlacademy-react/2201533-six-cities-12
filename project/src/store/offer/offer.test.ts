@@ -1,10 +1,9 @@
 import {offerData, resetPostCommentState, setRating, setReview, setTimer} from './offer';
 import {OfferStore, PromiseStates} from '../../types/state-types';
 import {PlaceData} from '../../types/place-data-types';
-import {clearTimeout} from 'timers';
 import {getRandomComment, getRandomRating} from '../../utils/mocks';
-import {fetchOffer, postComment} from '../api-actions';
-import {getFakeDayaFromFetchOffer, makeFakeComments} from '../../utils/offer-mocks';
+import {fetchOffer, postComment} from '../api-actions/api-actions';
+import {makeFakeDataFromFetchOffer, makeFakeComments, FAKE_TIMER} from '../../utils/offer-mocks';
 
 const defaultState: OfferStore = {
   selectedOffer: null as unknown as PlaceData,
@@ -23,11 +22,9 @@ describe('Reducer: offerData', () => {
       .toEqual(defaultState);
   });
   it('should assign the received value to the timer', () => {
-    const timeoutID = setTimeout(() => 0);
-    clearTimeout(timeoutID);
     const result = Object.assign({}, defaultState);
-    result.timer = timeoutID;
-    expect(offerData.reducer(defaultState, setTimer(timeoutID)))
+    result.timer = FAKE_TIMER;
+    expect(offerData.reducer(defaultState, setTimer(FAKE_TIMER)))
       .toEqual(result);
   });
   it('should assign the received value to the rating', () => {
@@ -60,7 +57,7 @@ describe('Reducer: offerData', () => {
     const state = Object.assign({}, defaultState);
     state.isOfferLoading = true;
     const result = Object.assign({}, defaultState);
-    const {entrance, out} = getFakeDayaFromFetchOffer();
+    const {entrance, out} = makeFakeDataFromFetchOffer();
     result.selectedOffer = out.offer;
     result.nearOffers = out.near;
     result.comments = out.comments;
@@ -71,7 +68,7 @@ describe('Reducer: offerData', () => {
   it('should reset isOfferLoading if Offer fails to load', () => {
     const state = Object.assign({}, defaultState);
     state.isOfferLoading = true;
-    expect(offerData.reducer(defaultState, {type: fetchOffer.rejected.type}))
+    expect(offerData.reducer(state, {type: fetchOffer.rejected.type}))
       .toEqual(defaultState);
   });
   it('should assign values to comments and reset the entered data', () => {

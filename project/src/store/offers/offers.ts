@@ -4,7 +4,7 @@ import {errMsg, NameSpace} from '../../settings';
 import {adaptHosts, adaptPlace} from '../adapter';
 import {User} from '../../types/types';
 import {IsFavorite, OffersData} from '../../types/state-types';
-import {fetchOffers, postFavorite} from '../api-actions';
+import {fetchOffers, postFavorite} from '../api-actions/api-actions';
 import {toast} from 'react-toastify';
 import {SortingVariants} from '../../consts/sort-consts';
 

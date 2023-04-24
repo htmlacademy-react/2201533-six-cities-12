@@ -8,10 +8,10 @@ import {useAppSelector} from '../../../hooks';
 export default function SortingForm(): JSX.Element {
   const [isVisible, setVisible] = useState(false);
   const variant = useAppSelector(selectSortingVariant);
-  const onClickArrow = (): void => {
+  const onArrowClick = (): void => {
     setVisible(!isVisible);
   };
-  const onClickUl = (evt: React.MouseEvent<HTMLLIElement>): void => {
+  const onULClick = (evt: React.MouseEvent<HTMLLIElement>): void => {
     const index: number = parseInt(evt.currentTarget.dataset.index as string, 10);
     if( index !== variant){
       store.dispatch(setSortingVariant(index));
@@ -22,7 +22,7 @@ export default function SortingForm(): JSX.Element {
   return (
     <form className="places__sorting" action="src/components/offers/sorting-form/sorting-form#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={onClickArrow}>
+      <span className="places__sorting-type" tabIndex={0} onClick={onArrowClick}>
         {/* eslint-disable-next-line no-irregular-whitespace */}
         <span>{` ${SORTING_VARIANTS[variant].text}`}</span>
         <svg className="places__sorting-arrow" width="7" height="4">
@@ -33,7 +33,7 @@ export default function SortingForm(): JSX.Element {
         {
           SORTING_VARIANTS.map((value, index) => (
             <li className={`places__option${variant === index ? ' places__option--active' : ''}`}
-              tabIndex={0} data-index={index} onClick={onClickUl} key={value.variant}
+              tabIndex={0} data-index={index} onClick={onULClick} key={value.variant}
             >{value.text}
             </li>
           ))

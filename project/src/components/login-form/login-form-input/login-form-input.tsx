@@ -11,6 +11,7 @@ export default function LoginFormInput({onFormInput, type}: InputProps): JSX.Ele
     <input className="login__input form__input" type={type} name={type}
       placeholder={type[0].toUpperCase().concat(type.substring(1))}
       value={input} required onInput={onInput}
+      data-testid={type}
     />
   );
 }

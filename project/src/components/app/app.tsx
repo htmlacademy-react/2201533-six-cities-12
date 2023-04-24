@@ -9,11 +9,8 @@ import PrivateRoute from '../private-route';
 import {DEFAULT_CITY} from '../../store/cities';
 import {useAppSelector} from '../../hooks';
 import Loading from '../../pages/loading/loading';
-import HistoryRouter from '../history-route/history-route';
-import {browserHistory} from '../../browser-history';
 import {getIsOffersLoaded} from '../../store/offers/offers-selectors';
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer} from 'react-toastify';
 import React from 'react';
 
 export default function App(): JSX.Element {
@@ -22,25 +19,23 @@ export default function App(): JSX.Element {
     return (<Loading/>);
   }
   return (
-    <HistoryRouter history={browserHistory}>
-      <ToastContainer />
-      <Routes>
-        <Route path={AppRoute.Root}>
-          <Route index element={<Navigate to={DEFAULT_CITY}/>}/>
-          <Route path={RouteParam.City} element={<CityPage />}/>
-          <Route path={AppRoute.Favorites} element={
-            <PrivateRoute>
-              <Favorites />
-            </PrivateRoute>
-          }
-          />
-          <Route path={AppRoute.Login} element={<Login/>}/>
-          <Route
-            path={`${AppRoute.Room}/${RouteParam.Room}`}
-            element={<Room />}
-          />
-        </Route>
-        <Route path="*" element={<NotFound />}/>
-      </Routes>
-    </HistoryRouter>);
+    <Routes>
+      <Route path={AppRoute.Root}>
+        <Route index element={<Navigate to={DEFAULT_CITY}/>}/>
+        <Route path={RouteParam.City} element={<CityPage />}/>
+        <Route path={AppRoute.Favorites} element={
+          <PrivateRoute>
+            <Favorites />
+          </PrivateRoute>
+        }
+        />
+        <Route path={AppRoute.Login} element={<Login/>}/>
+        <Route
+          path={`${AppRoute.Room}/${RouteParam.Room}`}
+          element={<Room />}
+        />
+      </Route>
+      <Route path="*" element={<NotFound />}/>
+    </Routes>
+  );
 }

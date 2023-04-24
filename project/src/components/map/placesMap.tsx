@@ -72,6 +72,6 @@ export default function PlacesMap({className, center, points, currentPoint}: Map
     }
   }, [map, points, center]);
   return (
-    <section className={`${className}__map map`} ref={mapRef}></section>
+    <section className={`${className}__map map`} ref={mapRef} data-testid={'map'}></section>
   );
 }

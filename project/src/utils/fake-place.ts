@@ -4,12 +4,12 @@ import {getRandomInt} from './random';
 import {CITIES} from '../store/cities';
 import {PlaceData} from '../types/place-data-types';
 import {Max, Min, WORDS_IN_TITLE} from './mocks-const';
-import {getInsides, getLocation, getRandomRating} from './mocks';
+import {makeFakeInsides, makeFakeLocation, getRandomRating, getRandomCityIndex} from './mocks';
 
-export const makeFakePlace = (id: number):PlaceData => {
+export const makeFakePlace = (id: number, indexOfCity?: number):PlaceData => {
   const images =
     Array.from(new Array(getRandomInt(1, Max.images)), (element) => faker.image.imageUrl(260, 200));
-  const cityIndex = getRandomInt(0, Max.cityIndex);
+  const cityIndex = indexOfCity ?? getRandomCityIndex();
   const city = CITIES[cityIndex];
   return {
     features: {
@@ -19,12 +19,12 @@ export const makeFakePlace = (id: number):PlaceData => {
     },
     city: cityIndex,
     description: faker.lorem.paragraph(),
-    goods: getInsides(),
+    goods: makeFakeInsides(),
     hostId: getRandomInt(0, Max.hostId),
     id: id,
     images: images,
     isPremium: getRandomInt(0, 1) === 1,
-    location: getLocation(city.location),
+    location: makeFakeLocation(city.location),
     previewImage: faker.image.imageUrl(260, 200),
     price: getRandomInt(Min.price * 100, Max.price * 100) / 100,
     rating: getRandomRating(),
