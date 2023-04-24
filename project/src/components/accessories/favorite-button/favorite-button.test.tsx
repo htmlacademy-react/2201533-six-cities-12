@@ -8,6 +8,7 @@ import FavoriteButton from './favorite-button';
 import thunk from 'redux-thunk';
 import {OffersCardStyles} from '../../../consts/place-card-consts';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
+import userEvent from '@testing-library/user-event';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -17,7 +18,7 @@ const history = createMemoryHistory();
 describe('FavoriteButton', () => {
   const reactRedux = { useAppDispatch, useAppSelector };
   const useDispatchMock = jest.spyOn(reactRedux, 'useAppDispatch');
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const mockDispatch = jest.fn();
     useDispatchMock.mockReturnValue(mockDispatch);
     store.dispatch = mockDispatch;
@@ -37,7 +38,7 @@ describe('FavoriteButton', () => {
     );
 
     expect(screen.getByText(`${OffersCardStyles.BookmarkCaption}`)).toBeInTheDocument();
-    // await userEvent.click(screen.getByRole('button'));
-    // expect(store.dispatch).toHaveBeenCalledTimes(1);
+    await userEvent.click(screen.getByRole('button'));
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
   });
 });
