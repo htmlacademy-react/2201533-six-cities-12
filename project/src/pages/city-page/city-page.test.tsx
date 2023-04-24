@@ -2,16 +2,14 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
 import CityPage from './citi-page';
-import App from '../../components/app/app';
 import {Provider} from 'react-redux';
 import HistoryRouter from '../../components/history-route/history-route';
 import {defaultState} from '../../utils/default-state';
 import {AppRoute, RouteParam} from '../../settings';
-import {Routes, Route} from "react-router-dom";
-
+import {Routes, Route} from 'react-router-dom';
 import {CITIES} from '../../store/cities';
 import {getRandomCityIndex} from '../../utils/mocks';
-import React from "react";
+import React from 'react';
 
 
 const mockStore = configureMockStore();

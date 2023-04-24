@@ -17,7 +17,7 @@ const history = createMemoryHistory();
 describe('FavoriteButton', () => {
   const reactRedux = { useAppDispatch, useAppSelector };
   const useDispatchMock = jest.spyOn(reactRedux, 'useAppDispatch');
-  it('should render correctly', async () => {
+  it('should render correctly', () => {
     const mockDispatch = jest.fn();
     useDispatchMock.mockReturnValue(mockDispatch);
     store.dispatch = mockDispatch;
