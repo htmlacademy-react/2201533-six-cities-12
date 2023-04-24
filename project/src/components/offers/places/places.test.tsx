@@ -1,16 +1,14 @@
 import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
-import {defaultState} from "../../../utils/default-state";
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import {Provider} from "react-redux";
-import HistoryRouter from "../../history-route/history-route";
-import LocationsTabs from "../locations-tabs/locations-tabs";
-import {CITIES} from "../../../store/cities";
-import Places from "./places";
-import {NameSpace} from "../../../settings";
-import {getRandomInt} from "../../../utils/random";
-import {getRandomCityIndex} from "../../../utils/mocks";
-import App from "../../app/app";
+import {defaultState} from '../../../utils/default-state';
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import {Provider} from 'react-redux';
+import HistoryRouter from '../../history-route/history-route';
+import {CITIES} from '../../../store/cities';
+import Places from './places';
+import {NameSpace} from '../../../settings';
+import {getRandomInt} from '../../../utils/random';
+import {getRandomCityIndex} from '../../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
