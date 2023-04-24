@@ -9,11 +9,11 @@ import {NameSpace} from '../../../settings';
 import {makeFakeFavorites} from '../../../utils/favorites-mocks';
 
 const mockStore = configureMockStore();
-const store = mockStore(defaultState);
 const history = createMemoryHistory();
 
 describe('Component FavoritesLocations', () => {
   it('should render correctly empty favorites', () => {
+    const store = mockStore(defaultState);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -31,6 +31,7 @@ describe('Component FavoritesLocations', () => {
     state[NameSpace.Favorites].favorites = favorites;
     const count = favorites.length;
     state[NameSpace.Favorites].count = favorites.length;
+    const store = mockStore(state);
     const citiesCount = new Set<number>(Array.from(favorites, (element) => element.city)).size;
     render(
       <Provider store={store}>
