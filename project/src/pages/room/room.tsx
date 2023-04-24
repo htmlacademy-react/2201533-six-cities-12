@@ -34,7 +34,8 @@ export default function Room(): JSX.Element{
       <Header/>
       <main className="page__main page__main--property">
         <section className="property">
-          <RoomGallery images={offer.images.slice(0, MAX_IMAGES)}/>
+          <RoomGallery images={offer.images.slice(0, MAX_IMAGES).map((element, index) =>
+            ({src: element, key: index}))}/>
           <RoomContainer {... offer}/>
           <PlacesMap {... {
             className: 'property',
