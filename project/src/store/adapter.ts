@@ -3,7 +3,7 @@ import {APIRoute, TypeOffer} from '../settings';
 import {CITIES} from './cities';
 import {User} from '../types/types';
 
-export const adaptPlace = (raw: RawPlace): PlaceData =>(
+export const adaptPlace = (raw: RawPlace, index: number): PlaceData =>(
   {
     features: {bedrooms: raw.bedrooms, maxAdults: raw.maxAdults, type: TypeOffer[raw.type]},
     city: CITIES.findIndex((city) => city.name === raw.city.name),
@@ -17,7 +17,8 @@ export const adaptPlace = (raw: RawPlace): PlaceData =>(
     previewImage: raw.previewImage,
     price: raw.price,
     rating: raw.rating,
-    title: raw.title
+    title: raw.title,
+    popular: index
   });
 
 export const adaptHosts = (hosts: User[]) => {

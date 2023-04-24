@@ -1,7 +1,7 @@
 import {FavoritesStore} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../settings';
-import {fetchFavorites} from '../api-actions';
+import {fetchFavorites} from '../api-actions/api-actions';
 import {adaptPlace} from '../adapter';
 
 const initialState: FavoritesStore = {
@@ -29,7 +29,7 @@ export const favoriteData = createSlice({
       .addCase(fetchFavorites.pending, (state) => {state.isFavoritesLoading = true;})
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.favorites = action.payload.map((raw) =>
-          adaptPlace(raw)).filter((offer) => offer.city > -1);
+          adaptPlace(raw, 0)).filter((offer) => offer.city > -1);
         state.count = state.favorites.length;
         state.isFavoritesLoading = false;
       })

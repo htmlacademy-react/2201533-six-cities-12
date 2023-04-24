@@ -16,12 +16,11 @@ export type HeaderData = {
 export type CityData = {
   cities: City[];
   cityIndex: number;
-  city: City;
-  citiesOffers: PlaceData[];
-  offersCount: number;
-  sortingVariant: SortingVariants;
-  activeCard: number;
 };
+
+export type MapData = {
+  activeCard: number;
+}
 
 export enum PromiseStates {
   undefined = 'undefined',
@@ -68,14 +67,5 @@ export type OffersData = {
   isOffersLoaded: boolean;
   hosts: User[];
   isFavorites: IsFavorite[];
+  sortingVariant: SortingVariants;
 };
-
-export type CityPayLoad = {
-  index: number;
-  offers: PlaceData[];
-};
-
-export type SortPayLoad = {
-  variant: SortingVariants;
-  offers: PlaceData[];
-}

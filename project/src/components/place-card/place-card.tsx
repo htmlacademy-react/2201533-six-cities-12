@@ -2,10 +2,10 @@ import {CardStyles} from '../../types/types';
 import {useLocation, Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../settings';
 import React from 'react';
-import RatingStars from '../rating-stars/rating-stars';
-import PremiumMark from '../premium-mark/premium-mark';
-import FavoriteButton from '../favorite-button/favorite-button';
-import {activateCard} from '../../store/city-process/city-process';
+import RatingStars from '../accessories/rating-stars/rating-stars';
+import PremiumMark from '../accessories/premium-mark/premium-mark';
+import FavoriteButton from '../accessories/favorite-button/favorite-button';
+import {activateCard} from '../../store/map-process/map-process';
 import {FavoritesCardStyles, NO_ACTIVE_CARD, OffersCardStyles, RoomCardStyles} from '../../consts/place-card-consts';
 import {PlaceData} from '../../types/place-data-types';
 import {useAppDispatch} from '../../hooks';
@@ -29,6 +29,7 @@ export default function PlaceCard(place: PlaceData): JSX.Element{
     <article className={styles.ArticleClass}
       onMouseEnter={needSetMouseEvent ? () => dispatch(activateCard(id)) : undefined}
       onMouseLeave={needSetMouseEvent ? () => dispatch(activateCard(NO_ACTIVE_CARD)) : undefined}
+      data-testid={'place-card'}
     >
       {isPremium && <PremiumMark className='place-card'/>}
       <div className={styles.WrapperClass}>

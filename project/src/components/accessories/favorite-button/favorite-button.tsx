@@ -1,10 +1,10 @@
 import React from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {postFavorite} from '../../store/api-actions';
-import {selectIsAuth} from '../../store/user-process/user-selectors';
+import {useAppDispatch, useAppSelector} from '../../../hooks';
+import {postFavorite} from '../../../store/api-actions/api-actions';
+import {selectIsAuth} from '../../../store/user-process/user-selectors';
 import {useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../settings';
-import {selectIsFavorite} from '../../store/offers/offers-selectors';
+import {AppRoute} from '../../../settings';
+import {selectIsFavorite} from '../../../store/offers/offers-selectors';
 type FavoriteButtonProps = {
   id: number;
   caption: string;
@@ -18,7 +18,7 @@ export default function FavoriteButton({id, caption, width, height, place}: Favo
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isFavorite = useAppSelector((state) => selectIsFavorite(state, id));
-  const onFavorite = (evt: React.MouseEvent) => {
+  const onFavoriteClick = (evt: React.MouseEvent) => {
     if (isAuth){
       dispatch(postFavorite({hotelId: id, status: !isFavorite}));
     } else {
@@ -29,7 +29,7 @@ export default function FavoriteButton({id, caption, width, height, place}: Favo
     <button
       className={`${place}__bookmark-button ${isFavorite ? `${place}__bookmark-button--active` : ''} button`}
       type="button"
-      onClick={onFavorite}
+      onClick={onFavoriteClick}
     >
       <svg className={`${place}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>

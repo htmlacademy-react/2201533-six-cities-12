@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
-import {loginAction} from '../../../store/api-actions';
+import {loginAction} from '../../../store/api-actions/api-actions';
 import {useAppDispatch} from '../../../hooks';
-import LoginFormEmail from '../login-form-email/login-form-email';
-import LoginFormPassword from '../login-form-password/login-form-password';
+import LoginFormInput from '../login-form-input/login-form-input';
 
 export type InputProps = {
-  onInput: (text: string) => void;
+  onFormInput: (text: string) => void;
+  type: string;
 }
 
 export default function LoginForm(): JSX.Element {
@@ -35,11 +35,11 @@ export default function LoginForm(): JSX.Element {
     <form className="login__form form" action="#" method="post" onSubmit={onSubmit}>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
-        <LoginFormEmail onInput={onInputEmail}/>
+        <LoginFormInput onFormInput={onInputEmail} type={'email'}/>
       </div>
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">Password</label>
-        <LoginFormPassword onInput={onInputPass} />
+        <LoginFormInput onFormInput={onInputPass} type={'password'}/>
       </div>
       <button className="login__submit form__submit button" type="submit">Sign in</button>
     </form>

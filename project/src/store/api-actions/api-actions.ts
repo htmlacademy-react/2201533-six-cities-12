@@ -1,13 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {redirectToRoute} from './actions';
-import {APIRoute, AppRoute, NameSpace} from '../settings';
-import {AppDispatch, RootState} from './index';
-import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../types/place-data-types';
-import {TypeAction} from './typeAction';
+import {redirectToRoute} from '../actions';
+import {APIRoute, AppRoute, NameSpace} from '../../settings';
+import {AppDispatch, RootState} from '../index';
+import {RawPlace, RawPlaceData, Comment, PostFavorite} from '../../types/place-data-types';
+import {TypeAction} from '../typeAction';
 import {AxiosInstance,} from 'axios';
-import {AuthType, UserType} from '../types/user-types';
-import {dropToken, saveToken} from '../servises/token';
-import {loaders} from './adapter';
+import {AuthType, UserType} from '../../types/user-types';
+import {dropToken, saveToken} from '../../servises/token';
+import {loaders} from '../adapter';
 
 export const fetchOffers = createAsyncThunk<RawPlace[], undefined, {
   dispatch: AppDispatch;

@@ -3,7 +3,7 @@ import {OfferStore, PromiseStates} from '../../types/state-types';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {errMsg, NameSpace} from '../../settings';
 import {adaptPlace, loaders} from '../adapter';
-import {fetchOffer, postComment} from '../api-actions';
+import {fetchOffer, postComment} from '../api-actions/api-actions';
 import {toast} from 'react-toastify';
 
 const initialState: OfferStore = {
@@ -44,16 +44,19 @@ export const offerData = createSlice({
         action.payload.forEach((data: RawPlaceData, index) => {
           switch (loaders[index].field){
             case 'selectedOffer':
-              state.selectedOffer = adaptPlace(data as RawPlace);
+              state.selectedOffer = adaptPlace(data as RawPlace, 0);
               break;
             case 'nearOffers':
-              state.nearOffers = (data as RawPlace[]).map((raw) => adaptPlace(raw));
+              state.nearOffers = (data as RawPlace[]).map((raw) => adaptPlace(raw, 0));
               break;
             case 'comments':
               state.comments = data as Comment[];
               break;
           }
         });
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchOffer.rejected, (state: OfferStore) => {
         state.isOfferLoading = false;
       })
       .addCase(postComment.fulfilled, (state: OfferStore, action: PayloadAction<Comment[]>) => {

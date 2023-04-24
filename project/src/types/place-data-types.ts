@@ -45,13 +45,13 @@ export type PlaceData = {
   hostId: number;
   id: number;
   images: string[];
-//  isFavorite: boolean;
   isPremium: boolean;
   location: MapLocation;
   previewImage: string;
   price: number;
   rating: number;
   title: string;
+  popular: number;
 };
 
 export type Loader = {

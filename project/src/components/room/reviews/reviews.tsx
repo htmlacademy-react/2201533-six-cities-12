@@ -1,5 +1,5 @@
 import ReviewsForm from '../reviews-form/reviews-form';
-import RatingStars from '../../rating-stars/rating-stars';
+import RatingStars from '../../accessories/rating-stars/rating-stars';
 import RoomUser, {Modes} from '../room-user/room-user';
 import ReviewTime from '../review-time/review-time';
 import {useAppSelector} from '../../../hooks';

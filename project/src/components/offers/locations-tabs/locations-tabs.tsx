@@ -9,7 +9,7 @@ const getClassName = ({isActive}: {isActive: boolean}): string => isActive ? `${
 
 export default function LocationsTabs(): JSX.Element {
   return (
-    <div className="tabs">
+    <div className="tabs" data-testid={'location-tabs'}>
       <section className="locations container">
         <ul className="locations__list tabs__list">
           {CITIES.map((city) => (

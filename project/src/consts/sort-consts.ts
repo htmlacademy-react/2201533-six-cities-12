@@ -8,7 +8,8 @@ export const Order = {
 
 const SortFields = {
   price: 'price' as keyof PlaceData,
-  rating: 'rating' as keyof PlaceData
+  rating: 'rating' as keyof PlaceData,
+  popular: 'popular' as keyof PlaceData
 };
 
 export enum SortingVariants {
@@ -19,7 +20,7 @@ export enum SortingVariants {
 }
 
 export const SORTING_VARIANTS: SortOptions[] = [
-  {text: 'Popular', field: null, order: 0, variant: SortingVariants.Default},
+  {text: 'Popular', field: SortFields.popular, order: Order.up, variant: SortingVariants.Default},
   {text: 'Price: low to high', field: SortFields.price, order: Order.up, variant: SortingVariants.PriceUp},
   {text: 'Price: high to low', field: SortFields.price, order: Order.down, variant: SortingVariants.PriceDown},
   {text: 'Top rated first', field: SortFields.rating, order: Order.down, variant: SortingVariants.Rated}

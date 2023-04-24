@@ -1,6 +1,6 @@
 import {useAppDispatch} from './index';
 import {useEffect, useRef} from 'react';
-import {fetchFavorites} from '../store/api-actions';
+import {fetchFavorites} from '../store/api-actions/api-actions';
 
 export default function useFetchFavorites() {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
 import {UserProcess} from '../../types/state-types';
 import {AuthorizationStatus, DEFAULT_EMAIL, NameSpace} from '../../settings';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {checkAuth, loginAction, logoutAction} from '../api-actions';
+import {checkAuth, loginAction, logoutAction} from '../api-actions/api-actions';
 import {UserType} from '../../types/user-types';
 
 const initialState: UserProcess = {
@@ -39,3 +39,5 @@ export const userProcess = createSlice({
       });
   }
 });
+
+export const {setEmail} = userProcess.actions;

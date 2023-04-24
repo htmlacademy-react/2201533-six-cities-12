@@ -2,7 +2,7 @@ import {ReviewsFormStars} from './reviews-form-stars';
 import ReviewFormText from './review-form-text';
 import ReviewFormSubmit from './review-form-submit';
 import React from 'react';
-import {postComment} from '../../../store/api-actions';
+import {postComment} from '../../../store/api-actions/api-actions';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {selectFailed} from '../../../store/offer/offer-selectors';
 import {useRef} from 'react';

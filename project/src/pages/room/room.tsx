@@ -8,7 +8,7 @@ import PlaceCard from '../../components/place-card/place-card';
 import PlacesMap from '../../components/map/placesMap';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Loading from '../loading/loading';
-import {fetchOffer} from '../../store/api-actions';
+import {fetchOffer} from '../../store/api-actions/api-actions';
 import {useEffect, useRef} from 'react';
 import {selectRoomData} from '../../store/offer/offer-selectors';
 

@@ -6,7 +6,7 @@ import {Icon, Marker} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useAppSelector} from '../../hooks';
 import {NO_ACTIVE_CARD} from '../../consts/place-card-consts';
-import {selectActiveCard} from '../../store/city-process/city-process-selectors';
+import {selectActiveCard} from '../../store/map-process/map-process-selectors';
 
 export interface MapAttributes {
   center: MapLocation;
@@ -72,6 +72,6 @@ export default function PlacesMap({className, center, points, currentPoint}: Map
     }
   }, [map, points, center]);
   return (
-    <section className={`${className}__map map`} ref={mapRef}></section>
+    <section className={`${className}__map map`} ref={mapRef} data-testid={'map'}></section>
   );
 }
