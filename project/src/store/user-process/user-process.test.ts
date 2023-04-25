@@ -20,7 +20,8 @@ describe('Reducer: userProcess', () => {
     const email = getFakeEmail();
     const result = {
       authorizationStatus: AuthorizationStatus.Unknown,
-      userEmail: email
+      userEmail: email,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, setEmail(email)))
       .toEqual(result);
@@ -29,7 +30,8 @@ describe('Reducer: userProcess', () => {
     const payload = makeFakeUser;
     const result = {
       authorizationStatus: AuthorizationStatus.Auth,
-      userEmail: payload.email
+      userEmail: payload.email,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, {type: checkAuth.fulfilled.type, payload: payload}))
       .toEqual(result);
@@ -37,7 +39,8 @@ describe('Reducer: userProcess', () => {
   it('should set not authorization status', () => {
     const result = {
       authorizationStatus: AuthorizationStatus.NoAuth,
-      userEmail: DEFAULT_EMAIL
+      userEmail: DEFAULT_EMAIL,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, {type: checkAuth.rejected.type}))
       .toEqual(result);
@@ -46,7 +49,8 @@ describe('Reducer: userProcess', () => {
     const payload = makeFakeUser;
     const result = {
       authorizationStatus: AuthorizationStatus.Auth,
-      userEmail: payload.email
+      userEmail: payload.email,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, {type: loginAction.fulfilled.type, payload: payload}))
       .toEqual(result);
@@ -54,7 +58,8 @@ describe('Reducer: userProcess', () => {
   it('should not login user, set status "NoAuth"', () => {
     const result = {
       authorizationStatus: AuthorizationStatus.NoAuth,
-      userEmail: DEFAULT_EMAIL
+      userEmail: DEFAULT_EMAIL,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, {type: loginAction.rejected.type}))
       .toEqual(result);
@@ -62,7 +67,8 @@ describe('Reducer: userProcess', () => {
   it('should logout user, set status "NoAuth"', () => {
     const result = {
       authorizationStatus: AuthorizationStatus.NoAuth,
-      userEmail: DEFAULT_EMAIL
+      userEmail: DEFAULT_EMAIL,
+      isCheckingStatus: false
     };
     expect(userProcess.reducer(defaultState, {type: logoutAction.fulfilled.type}))
       .toEqual(result);
