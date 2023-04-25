@@ -91,7 +91,7 @@ export const postFavorite = createAsyncThunk<RawPlace, PostFavorite, {
   extra: AxiosInstance;
 }>(
   TypeAction.postFavorite,
-  async ({hotelId, status}, {dispatch, extra: axiosApi}) => {
+  async ({hotelId, status}, {extra: axiosApi}) => {
     const url = `${APIRoute.Favorite}/${hotelId}/${status ? '1' : '0'}`;
     const {data} = await axiosApi.post<RawPlace>(url);
     return data;

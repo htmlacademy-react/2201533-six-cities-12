@@ -34,7 +34,7 @@ export default function PlaceCard(place: PlaceData): JSX.Element{
       {isPremium && <PremiumMark className='place-card'/>}
       <div className={styles.WrapperClass}>
         <Link to={`${AppRoute.Room}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={styles.ImgWidth} height={styles.ImgHeight} alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width={styles.ImgWidth} height={styles.ImgHeight} alt="Place photos"/>
         </Link>
       </div>
       <div className={styles.InfoClass}>

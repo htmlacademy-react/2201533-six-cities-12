@@ -30,5 +30,5 @@ export const makeFakePlace = (id: number, indexOfCity?: number):PlaceData => {
     rating: getRandomRating(),
     title: faker.lorem.sentence(WORDS_IN_TITLE),
     popular: id,
-  };};
-
+  };
+};

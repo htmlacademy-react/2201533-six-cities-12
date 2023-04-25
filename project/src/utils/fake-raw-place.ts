@@ -8,7 +8,7 @@ import {RawPlace} from '../types/place-data-types';
 
 export const makeFakeRawPlace = (id: number, indexOfCity?: number):RawPlace => {
   const images =
-    Array.from(new Array(getRandomInt(1, Max.images)), (element) => faker.image.imageUrl(260, 200));
+    Array.from(new Array(getRandomInt(1, Max.images)), (_) => faker.image.imageUrl(260, 200));
   const cityIndex = indexOfCity ?? getRandomCityIndex();
   const city = CITIES[cityIndex];
   return {

@@ -23,7 +23,7 @@ export default function Room(): JSX.Element{
       dispatch(fetchOffer(id));
       isFetched.current = true;
     }
-  }, [id]);
+  }, [id, dispatch]);
   if (isLoading){
     return <Loading/>;
   }
