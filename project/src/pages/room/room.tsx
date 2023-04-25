@@ -9,7 +9,7 @@ import PlacesMap from '../../components/map/placesMap';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Loading from '../loading/loading';
 import {fetchOffer} from '../../store/api-actions/api-actions';
-import {useEffect, useRef} from 'react';
+import {useEffect, useLayoutEffect, useRef} from 'react';
 import {selectRoomData} from '../../store/offer/offer-selectors';
 
 export default function Room(): JSX.Element{
@@ -17,6 +17,7 @@ export default function Room(): JSX.Element{
   const isFetched = useRef<boolean>(false);
   const dispatch = useAppDispatch();
   const {isLoading, offer, near} = useAppSelector(selectRoomData);
+  useLayoutEffect(() => {isFetched.current = false;}, [id]);
   useEffect(() => {
     if (!isFetched.current){
       dispatch(fetchOffer(id));

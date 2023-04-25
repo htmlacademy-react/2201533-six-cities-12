@@ -7,7 +7,8 @@ import {checkAuth, loginAction, logoutAction} from '../api-actions/api-actions';
 
 const defaultState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userEmail: DEFAULT_EMAIL
+  userEmail: DEFAULT_EMAIL,
+  isCheckingStatus: false
 };
 
 describe('Reducer: userProcess', () => {

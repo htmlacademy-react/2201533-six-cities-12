@@ -6,6 +6,7 @@ import {SortingVariants} from '../consts/sort-consts';
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus;
   userEmail: string;
+  isCheckingStatus: boolean;
 };
 
 export type HeaderData = {

@@ -6,7 +6,8 @@ import {UserType} from '../../types/user-types';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  userEmail: DEFAULT_EMAIL
+  userEmail: DEFAULT_EMAIL,
+  isCheckingStatus: false
 };
 
 export const userProcess = createSlice({
@@ -19,12 +20,17 @@ export const userProcess = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(checkAuth.pending, (state) => {
+        state.isCheckingStatus = true;
+      })
       .addCase(checkAuth.fulfilled, (state, action: PayloadAction<UserType>) => {
         state.userEmail = action.payload.email;
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.isCheckingStatus = false;
       })
       .addCase(checkAuth.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.isCheckingStatus = false;
       })
       .addCase(loginAction.fulfilled, (state, action: PayloadAction<UserType>) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
