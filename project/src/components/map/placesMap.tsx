@@ -70,7 +70,7 @@ export default function PlacesMap({className, center, points, currentPoint}: Map
           .addTo(map);
       }
     }
-  }, [map, points, center]);
+  }, [map, points, center, currentPoint]);
   return (
     <section className={`${className}__map map`} ref={mapRef} data-testid={'map'}></section>
   );
