@@ -11,7 +11,7 @@ export default function RightHeader(): JSX.Element {
   const {isAuth, email}: HeaderData = useAppSelector(selectHeaderData);
   const favoritesCount = useAppSelector(selectFavoritesCount);
   const dispatch = useAppDispatch();
-  const onLogout = (evt: React.MouseEvent) => {
+  const logoutHandle = (evt: React.MouseEvent) => {
     evt.preventDefault();
     dispatch(logoutAction());
   };
@@ -24,7 +24,7 @@ export default function RightHeader(): JSX.Element {
               <div className="header__avatar-wrapper user__avatar-wrapper">
               </div>
               <span className="header__user-name user__name">{email}</span>
-              <span className="header__favorite-count">{favoritesCount === 0 ? '' : favoritesCount}</span>
+              <span className="header__favorite-count">{favoritesCount}</span>
             </Link> :
             <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>
               <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -34,7 +34,7 @@ export default function RightHeader(): JSX.Element {
         </li>
         {isAuth ?
           <li className="header__nav-item">
-            <Link className="header__nav-link" to='/' onClick={onLogout}>
+            <Link className="header__nav-link" to='/' onClick={logoutHandle}>
               <span className="header__signout">Sign out</span>
             </Link>
           </li> : ''}

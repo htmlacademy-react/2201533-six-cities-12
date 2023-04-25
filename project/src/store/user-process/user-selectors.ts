@@ -7,4 +7,4 @@ export const selectIsAuth = (state: RootState): boolean => state[NameSpace.User]
 export const selectEmail = (state: RootState): string => state[NameSpace.User].userEmail;
 export const selectHeaderData = createSelector([selectEmail, selectIsAuth],
   (email, isAuth): HeaderData => ({isAuth, email}));
-
+export const selectIsChecking = (state: RootState): boolean => state[NameSpace.User].isCheckingStatus;

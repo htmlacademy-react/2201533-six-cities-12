@@ -106,11 +106,7 @@ export const postComment = createAsyncThunk<Comment[], number, {
   TypeAction.postComment,
   async (id, {getState, extra: axiosApi}) => {
     const {comment, rating} = getState()[NameSpace.Offer];
-    // const delay = new Promise((resolve) => {
-    //   setTimeout(() => resolve(0), 5000);
-    // });
     const url = `${APIRoute.Comments}/${id}`;
-    // await delay;
     const {data} = await axiosApi.post<Comment[]>(url, {comment, rating});
     return data;
   },

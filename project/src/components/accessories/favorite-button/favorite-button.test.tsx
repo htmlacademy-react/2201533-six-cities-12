@@ -37,7 +37,5 @@ describe('FavoriteButton', () => {
     );
 
     expect(screen.getByText(`${OffersCardStyles.BookmarkCaption}`)).toBeInTheDocument();
-    // await userEvent.click(screen.getByRole('button'));
-    // expect(store.dispatch).toHaveBeenCalledTimes(1);
   });
 });

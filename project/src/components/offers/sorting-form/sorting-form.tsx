@@ -11,7 +11,7 @@ export default function SortingForm(): JSX.Element {
   const onArrowClick = (): void => {
     setVisible(!isVisible);
   };
-  const onULClick = (evt: React.MouseEvent<HTMLLIElement>): void => {
+  const ulClickHandle = (evt: React.MouseEvent<HTMLLIElement>): void => {
     const index: number = parseInt(evt.currentTarget.dataset.index as string, 10);
     if( index !== variant){
       store.dispatch(setSortingVariant(index));
@@ -33,7 +33,7 @@ export default function SortingForm(): JSX.Element {
         {
           SORTING_VARIANTS.map((value, index) => (
             <li className={`places__option${variant === index ? ' places__option--active' : ''}`}
-              tabIndex={0} data-index={index} onClick={onULClick} key={value.variant}
+              tabIndex={0} data-index={index} onClick={ulClickHandle} key={value.variant}
             >{value.text}
             </li>
           ))
