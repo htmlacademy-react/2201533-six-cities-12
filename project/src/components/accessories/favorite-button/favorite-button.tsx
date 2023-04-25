@@ -18,7 +18,7 @@ export default function FavoriteButton({id, caption, width, height, place}: Favo
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isFavorite = useAppSelector((state) => selectIsFavorite(state, id));
-  const onFavoriteClick = (evt: React.MouseEvent) => {
+  const onFavoriteClick = () => {
     if (isAuth){
       dispatch(postFavorite({hotelId: id, status: !isFavorite}));
     } else {

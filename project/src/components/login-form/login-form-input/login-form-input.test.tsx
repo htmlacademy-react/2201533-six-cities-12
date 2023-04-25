@@ -11,9 +11,6 @@ describe('Component: LoginForm', () => {
         type={'email'}
       />
     );
-    // eslint-disable-next-line testing-library/no-wait-for-side-effects
-    // await waitFor (() => userEvent.type(screen.getByTestId('email'), 'keks@mail.ru'));
-    // expect(screen.getByDisplayValue(/keks@mail.ru/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
   });
 });

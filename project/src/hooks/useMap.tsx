@@ -28,6 +28,6 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, loc
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, map]);
+  }, [mapRef, map, location]);
   return map;
 }

@@ -9,7 +9,7 @@ export default function RoomGallery({images}: {images: GalleryImages[]}): JSX.El
         {images.map((element) =>
           (
             <div className="property__image-wrapper" key={`${element.key}`}>
-              <img className="property__image" src={element.src} alt="Photo studio"/>
+              <img className="property__image" src={element.src} alt="Studio"/>
             </div>)
         )}
       </div>

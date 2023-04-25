@@ -2,7 +2,7 @@ import React from 'react';
 import {useAppSelector} from '../../../hooks';
 import {selectDisabledSubmit} from '../../../store/offer/offer-selectors';
 
-export default function ReviewFormSubmit({id}: {id: number}): JSX.Element {
+export default function ReviewFormSubmit(): JSX.Element {
   const disabled = useAppSelector(selectDisabledSubmit);
   return (
     <button
